@@ -7,13 +7,14 @@
     tools:context=".BottomTab">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        app:itemIconSize="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id = "@+id/bottom_navigation"
         app:itemBackground="@color/colorPurple1"
         app:itemIconTint="@drawable/selector"
         app:menu = "@menu/menu_navigation"
-        app:itemTextColor="@drawable/selector"
+        app:labelVisibilityMode="unlabeled"
         android:layout_alignParentBottom="true">
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

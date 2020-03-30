@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileScreenActivity">
+    tools:context=".ChapterViewScreenActivity">
     <com.google.android.material.bottomnavigation.BottomNavigationView
         app:itemIconSize="30dp"
         android:layout_width="match_parent"
@@ -16,5 +16,4 @@
         app:labelVisibilityMode="unlabeled"
         android:layout_alignParentBottom="true">
     </com.google.android.material.bottomnavigation.BottomNavigationView>
-
 </RelativeLayout>
