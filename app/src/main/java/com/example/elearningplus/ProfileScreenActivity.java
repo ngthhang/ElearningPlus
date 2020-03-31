@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -43,7 +44,13 @@ public class ProfileScreenActivity extends AppCompatActivity {
             }
         });
         /*FINISH - HANDLE BOTTOM NAVIGATION*/
+
     }
-    //test git
-    //test git bên Hằng
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_profile,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
 }
