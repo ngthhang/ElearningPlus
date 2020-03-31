@@ -137,9 +137,11 @@
             android:layout_height="wrap_content"
             android:text="TextView" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <ListView
+            android:id="@+id/listDiemSV"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true" />
 
 
     </LinearLayout>

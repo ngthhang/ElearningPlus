@@ -7,10 +7,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class ProfileScreenActivity extends AppCompatActivity {
+    ListView listView;
+    List<Profile_DiemSV> mlist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +51,15 @@ public class ProfileScreenActivity extends AppCompatActivity {
             }
         });
         /*FINISH - HANDLE BOTTOM NAVIGATION*/
-
+        mlist = new ArrayList<>();
+        int i=0;
+        for (i=0;i<=10;i++) {
+            mlist.add(new Profile_DiemSV("Cấu Trúc Rời Rạc", (float) 8.5));
+        }
+        listView=findViewById(R.id.listDiemSV);
+        Profile_DiemSV_Adapter adapter=new Profile_DiemSV_Adapter(this,mlist);
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
