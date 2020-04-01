@@ -4,9 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -23,6 +26,13 @@ public class ProfileScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_screen);
+        /*
+        Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.mipmap.giang);
+        Bitmap circularBitmap = Profile_ImageConverter.getRoundedCornerBitmap(bitmap, 100);
+
+        ImageView circularImageView = (ImageView) findViewById(R.id.imageView2);
+        circularImageView.setImageBitmap(circularBitmap);
+*/
 
         /*START - HANDLE BOTTOM NAVIGATION */
         //Initial and assign variable
