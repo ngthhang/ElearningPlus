@@ -17,6 +17,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="30dp"
         android:gravity="bottom"
         android:orientation="vertical">
 
@@ -24,25 +25,37 @@
             android:id="@+id/usernameText"
             android:layout_width="match_parent"
             android:layout_height="46dp"
-            android:layout_margin="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
             android:drawableLeft="@drawable/user"
+            android:drawableTint="@color/colorWhite1"
             android:ems="10"
+            android:hint="  User name"
             android:inputType="textPersonName"
             android:selectAllOnFocus="false"
             android:singleLine="false"
             android:textColor="@color/colorWhite2"
-            android:text="User name" />
+            android:textColorHint="@color/colorWhite2" />
 
         <EditText
             android:id="@+id/passwordText"
             android:layout_width="match_parent"
             android:layout_height="46dp"
-            android:layout_margin="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
             android:drawableLeft="@drawable/key"
+            android:drawableTint="@color/colorWhite1"
             android:ems="10"
+            android:hint="  Password"
+            android:inputType="textPassword"
             android:textColor="@color/colorWhite2"
-            android:inputType="textPersonName"
-            android:text="Password" />
+            android:textColorHint="@color/colorWhite2"
+            android:layout_marginLeft="30dp" />
 
         <Button
             android:id="@+id/loginBut"
@@ -57,7 +70,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/forgotBut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -67,9 +80,6 @@
             android:textColor="@color/colorWhite2"
             android:textSize="16.5sp"
             android:textStyle="italic" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
