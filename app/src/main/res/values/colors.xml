@@ -22,4 +22,30 @@
     <color name="colorGreen1">#71CAC6</color>
     <color name="colorGreen2">#29BF12</color>
     <color name="colorGreen3">#9DD4D2</color>
+
+    <integer-array name="color_array">
+        <item>@color/colorPurple1</item>
+        <item>@color/colorPurple2</item>
+        <item>@color/colorPurple3</item>
+        <item>@color/colorBlue3</item>
+        <item>@color/colorBlue5</item>
+        <item>@color/colorBlue6</item>
+        <item>@color/colorBlue7</item>
+        <item>@color/colorBlue8</item>
+        <item>@color/colorBlue9</item>
+        <item>@color/colorBlue10</item>
+        <item>@color/colorBlue11</item>
+        <item>@color/colorYellow1</item>
+        <item>@color/colorYellow2</item>
+        <item>@color/colorYellow3</item>
+        <item>@color/colorWhite1</item>
+        <item>@color/colorWhite2</item>
+        <item>@color/colorPink1</item>
+        <item>@color/colorPink2</item>
+        <item>@color/colorPink3</item>
+        <item>@color/colorGreen1</item>
+        <item>@color/colorGreen2</item>
+        <item>@color/colorGreen3</item>
+
+    </integer-array>
 </resources>
