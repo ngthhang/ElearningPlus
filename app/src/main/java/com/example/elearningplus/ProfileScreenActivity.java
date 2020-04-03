@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -94,6 +95,7 @@ public class ProfileScreenActivity extends AppCompatActivity {
             }
         });
 
+
         //Thiết lập sự kiện imagebutton Camera
         imgvAvatar = findViewById(R.id.imgAvatar);
         imageButton = findViewById(R.id.imgbCamera);
@@ -102,6 +104,26 @@ public class ProfileScreenActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent,REQUEST_ID_IMAGE_CAPTURE);
+            }
+        });
+    }
+
+    private void ShowMenu(){
+        final PopupMenu popupMenu = new PopupMenu(this,button);
+        popupMenu.getMenuInflater().inflate(R.menu.menu_profile,popupMenu.getMenu());
+        popupMenu.show();
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.menuChup:
+
+                        break;
+                    case R.id.menuChon:
+                        break;
+                }
+
+                return false;
             }
         });
     }
