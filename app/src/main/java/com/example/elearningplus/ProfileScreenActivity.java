@@ -1,12 +1,15 @@
 package com.example.elearningplus;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,28 +23,27 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class ProfileScreenActivity extends AppCompatActivity {
+    private static final int REQUEST_ID_IMAGE_CAPTURE = 100;
+
+    CircleImageView imgvAvatar;
     ListView listView;
     List<Profile_DiemSV> mlist;
     ImageButton imageButton;
     Button button;
 
+    @SuppressLint("CutPasteId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_screen);
 
-        //Circling Avatar
-        Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.giang);
-        Bitmap circularBitmap = Profile_ImageConverter.getRoundedCornerBitmap(bitmap, 100);
-
-        ImageView circularImageView = (ImageView) findViewById(R.id.imgAvatar);
-        circularImageView.setImageBitmap(circularBitmap);
-
         /*START - HANDLE BOTTOM NAVIGATION */
         //Initial and assign variable
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         //set Home selected
         bottomNavigationView.setSelectedItemId(R.id.profile);
@@ -93,15 +95,24 @@ public class ProfileScreenActivity extends AppCompatActivity {
         });
 
         //Thiết lập sự kiện imagebutton Camera
+        imgvAvatar = findViewById(R.id.imgAvatar);
         imageButton = findViewById(R.id.imgbCamera);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent,REQUEST_ID_IMAGE_CAPTURE);
             }
         });
+    }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==REQUEST_ID_IMAGE_CAPTURE && resultCode== RESULT_OK && data!=null) {
+            Bitmap bitmap2 = (Bitmap) data.getExtras().get("data");
+            imgvAvatar.setImageBitmap(bitmap2);
+        }
     }
 
     @Override
