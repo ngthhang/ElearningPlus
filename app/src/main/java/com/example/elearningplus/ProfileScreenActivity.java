@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Menu;
@@ -21,6 +22,7 @@ import android.widget.PopupMenu;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +31,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileScreenActivity extends AppCompatActivity {
     private static final int REQUEST_ID_IMAGE_CAPTURE = 100;
+    private static final int REQUEST_ID_IMAGE_CHOOSE = 161;
 
     CircleImageView imgvAvatar;
     ListView listView;
@@ -102,14 +105,13 @@ public class ProfileScreenActivity extends AppCompatActivity {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent,REQUEST_ID_IMAGE_CAPTURE);
+                ShowMenu();
             }
         });
     }
 
     private void ShowMenu(){
-        final PopupMenu popupMenu = new PopupMenu(this,button);
+        final PopupMenu popupMenu = new PopupMenu(this,imageButton);
         popupMenu.getMenuInflater().inflate(R.menu.menu_profile,popupMenu.getMenu());
         popupMenu.show();
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -117,12 +119,14 @@ public class ProfileScreenActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.menuChup:
-
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(intent,REQUEST_ID_IMAGE_CAPTURE);
                         break;
                     case R.id.menuChon:
+                        Intent intent1 = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        startActivityForResult(intent1,REQUEST_ID_IMAGE_CHOOSE);
                         break;
                 }
-
                 return false;
             }
         });
@@ -132,8 +136,18 @@ public class ProfileScreenActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==REQUEST_ID_IMAGE_CAPTURE && resultCode== RESULT_OK && data!=null) {
-            Bitmap bitmap2 = (Bitmap) data.getExtras().get("data");
-            imgvAvatar.setImageBitmap(bitmap2);
+            Bitmap bitmap1 = (Bitmap) data.getExtras().get("data");
+            imgvAvatar.setImageBitmap(bitmap1);
+        }
+        else if(requestCode == REQUEST_ID_IMAGE_CHOOSE && resultCode == RESULT_OK) {
+            try {
+                //xử lý lấy ảnh chọn từ điện thoại:
+                Uri imageUri = data.getData();
+                Bitmap bitmap2 = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                imgvAvatar.setImageBitmap(bitmap2);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -142,5 +156,4 @@ public class ProfileScreenActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_profile,menu);
         return super.onCreateOptionsMenu(menu);
     }
-
 }
