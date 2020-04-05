@@ -22,26 +22,9 @@ public class LoginScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_login_screen);
-        
-        btnLogin=(Button) findViewById(R.id.loginBut);
-        btnForgot=(Button) findViewById(R.id.forgotBut);
-        txtUser=(TextView) findViewById(R.id.usernameText);
-        txtPass=(TextView) findViewById(R.id.passwordText);
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (txtUser.getText().length()!=0 && txtPass.getText().length()!=0){
-                    Toast.makeText(LoginScreenActivity.this,"Đăng nhập thành công",Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(LoginScreenActivity.this,HomeScreenActivity.class);
-                    startActivity(intent);
-                }
-                else {
-                    Toast.makeText(LoginScreenActivity.this,"Mời bạn nhập đủ thông tin",Toast.LENGTH_SHORT).show();
-                }
-        }
-    });
+
+        mAuth = FirebaseAuth.getInstance();
         btnLogin=(Button) findViewById(R.id.loginBut);
         btnForgot=(TextView) findViewById(R.id.forgotBut);
         txtUser=(TextView) findViewById(R.id.usernameText);
@@ -64,6 +47,7 @@ public class LoginScreenActivity extends AppCompatActivity {
     private void Login(){
         String email = txtUser.getText().toString().trim();
         String password = txtPass.getText().toString().trim();
+
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
