@@ -7,4 +7,11 @@
         <item name="colorPrimaryDark">@color/colorBlue5</item>
         <item name="colorAccent">@color/colorPurple1</item>
     </style>
+
+    <style name="AppThemes" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPurple1</item>
+        <item name="colorPrimaryDark">@color/colorBlue5</item>
+        <item name="colorAccent">@color/colorPurple1</item>
+    </style>
 </resources>

@@ -2,19 +2,35 @@ package com.example.elearningplus;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
 
 public class CourseScreenActivity extends AppCompatActivity {
+
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_screen);
+
+        tabLayout = (TabLayout) findViewById(R.id.tabLayout_id);
+        viewPager = (ViewPager) findViewById(R.id.viewPager_id);
+
+        CourseScreen_ViewPager_Adapter adapter = new CourseScreen_ViewPager_Adapter(getSupportFragmentManager());
+        adapter.AddFragment(new CourseScreen_Course_Fragment(), "Course");
+        adapter.AddFragment(new CourseScreen_Assignment_Fragment(), "Assignment");
+
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
 
         /*START - HANDLE BOTTOM NAVIGATION */
         //Initial and assign variable
@@ -40,8 +56,9 @@ public class CourseScreenActivity extends AppCompatActivity {
                         return true;
                 }
                 return false;
+
             }
         });
         /*FINISH - HANDLE BOTTOM NAVIGATION*/
-
-    }}
+    }
+}
