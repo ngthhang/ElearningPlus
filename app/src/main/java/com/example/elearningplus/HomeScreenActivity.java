@@ -73,7 +73,6 @@ public class HomeScreenActivity extends AppCompatActivity {
 
             }
         } );
-
         /* FINISH - VIEW PAGER ADAPTER */
 
 
