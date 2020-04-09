@@ -1,14 +1,14 @@
 package com.example.elearningplus;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,18 +29,17 @@ public class LoginScreenActivity extends AppCompatActivity {
         txtUser=(TextView) findViewById(R.id.usernameText);
         txtPass=(TextView) findViewById(R.id.passwordText);
 
-    }
         btnLogin.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
                 Login();
-            }
+            };
         });
         btnForgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(LoginScreenActivity.this, "Béo ú", Toast.LENGTH_SHORT).show();
-            }
+            };
         });
 
     }
