@@ -12,8 +12,6 @@ public class Profile_DiemSV {
         this.diemMH = diemMH;
     }
 
-    public  Profile_DiemSV(){}
-
     public String getTenMH() {
         return tenMH;
     }

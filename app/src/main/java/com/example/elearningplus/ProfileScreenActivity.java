@@ -18,6 +18,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,7 +41,9 @@ public class ProfileScreenActivity extends AppCompatActivity {
     List<Profile_DiemSV> mlist;
     ImageButton imageButton;
     Button button;
-    TextView textView7,tvMSSV;
+    TextView tvTenSV,tvMSSV;
+    FirebaseUser mUser;
+    String mssv;
 
     @SuppressLint("CutPasteId")
     @Override
@@ -77,12 +81,16 @@ public class ProfileScreenActivity extends AppCompatActivity {
 
         /* START - LIST GRADE REALTIME DATABASE */
         mlist = new ArrayList<>();
-        textView7 = findViewById( R.id.textView7 );
+        tvTenSV = findViewById( R.id.tvTenSV );
         tvMSSV = findViewById( R.id.tvMSSV );
 
         mData = FirebaseDatabase.getInstance().getReference();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        final DatabaseReference studentId = mData.child( "user" ).child( "51800378" );
+        mssv = mUser.getEmail();
+        mssv = mssv.replace("@gmail.com","").trim();
+
+        final DatabaseReference studentId = mData.child( "user" ).child(mssv);
         final DatabaseReference studentName = studentId.child( "name" );
         final DatabaseReference studentGrade = studentId.child( "result" );
 
@@ -90,7 +98,7 @@ public class ProfileScreenActivity extends AppCompatActivity {
         studentName.addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                textView7.setText( dataSnapshot.getValue().toString() );
+                tvTenSV.setText( dataSnapshot.getValue().toString() );
             }
 
             @Override
