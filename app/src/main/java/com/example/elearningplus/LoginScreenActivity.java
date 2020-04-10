@@ -3,10 +3,12 @@ package com.example.elearningplus;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +21,12 @@ public class LoginScreenActivity extends AppCompatActivity {
     Button btnLogin;
     TextView txtUser,txtPass,btnForgot;
     private FirebaseAuth mAuth;
+
+    TextView tvResetPassWord;
+    EditText etResetPassWord;
+    Button btnResetPassWord;
+
+    public static String mssv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +47,7 @@ public class LoginScreenActivity extends AppCompatActivity {
         btnForgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(LoginScreenActivity.this, "Béo ú", Toast.LENGTH_SHORT).show();
+                ResetPassWord();
             }
         });
 
@@ -61,5 +69,24 @@ public class LoginScreenActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    public void ResetPassWord(){
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_resetpassword);
+        dialog.show();
+
+        tvResetPassWord = findViewById(R.id.tvResetPassWord);
+        etResetPassWord = dialog.findViewById(R.id.etResetPassWord);
+        btnResetPassWord = dialog.findViewById(R.id.btnResetPassWord);
+
+        btnResetPassWord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.sendPasswordResetEmail(etResetPassWord.getText().toString().trim());
+                Toast.makeText(LoginScreenActivity.this,"Kiểm tra email để reset password",Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }
