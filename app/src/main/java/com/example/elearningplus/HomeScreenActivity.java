@@ -1,14 +1,20 @@
 package com.example.elearningplus;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +26,37 @@ public class HomeScreenActivity extends AppCompatActivity {
     public HomeCourseAdapter homeCourseAdapter;
     public HomeAssignmentAdapter homeAssignmentAdapter;
     public ViewPager courseViewPager, assignmentViewPager;
+    private DatabaseReference mData;
+    public TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+
+        /* START - REALTIME DATABASE WITH FIREBASE */
+        final ArrayList<String> course = new ArrayList<>();
+
+        mData = FirebaseDatabase.getInstance().getReference();
+
+        final DatabaseReference studentCourse = mData.child( "user" ).child( "51800378").child( "course" );
+
+        studentCourse.addListenerForSingleValueEvent( new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    course.add( snapshot.getValue(String.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        } );
+
+
+        /* FINISH - REALTIME DATABASE WITH FIREBASE */
 
 
         /* START - VIEW PAGER ADAPTER */
@@ -55,26 +87,12 @@ public class HomeScreenActivity extends AppCompatActivity {
         assignmentViewPager.setAdapter( homeAssignmentAdapter );
         assignmentViewPager.setPadding( 16,10, 300,20 );
 
-
-        // handle change page on list course
-        courseViewPager.setOnPageChangeListener( new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        } );
-
         /* FINISH - VIEW PAGER ADAPTER */
+
+
+
+
+
 
 
 

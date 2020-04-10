@@ -19,6 +19,8 @@ public class HomeCourseAdapter extends PagerAdapter {
     private List<HomeCourse> homeCourseList;
     private Context context;
     private LayoutInflater layoutInflater;
+
+    //initial array colors
     int[] array_colors = null;
 
 

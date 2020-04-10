@@ -163,6 +163,7 @@
             android:id="@+id/listDiemSV"
             android:layout_width="match_parent"
             android:layout_height="153dp"
+            android:divider="@null"
             android:layout_centerHorizontal="true" />
 
         <Button
