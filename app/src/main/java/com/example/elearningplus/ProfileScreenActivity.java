@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,6 +36,7 @@ public class ProfileScreenActivity extends AppCompatActivity {
     public float k=0;
     public int i=0;
     public float m=0;
+    public String mssv;
 
     DatabaseReference mData;
     CircleImageView imgvAvatar;
@@ -89,20 +92,28 @@ public class ProfileScreenActivity extends AppCompatActivity {
         mData = FirebaseDatabase.getInstance().getReference();
 
         //Use database Ten
-        mData.child("student").child("-namez").addValueEventListener(new ValueEventListener() {
+        FirebaseUser user;
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        String email = user.getEmail();
+        mssv=email;
+        mssv=mssv.replace("@gmail.com","").trim();
+
+        mData.child("user").child(mssv).child("name").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                tvTenSV.setText(dataSnapshot.getValue().toString());
+                tvTenSV.setText((String) dataSnapshot.getValue());
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+
         //Use database MSSV
-        mData.child("student").child("id").addValueEventListener(new ValueEventListener() {
+        mData.child("user").child(mssv).child("id").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                tvMSSV.setText(dataSnapshot.getValue().toString());
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
+                tvMSSV.setText(dataSnapshot1.getValue().toString());
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -110,14 +121,14 @@ public class ProfileScreenActivity extends AppCompatActivity {
         });
 
         //Add database
-        //mData.child("monhoc").push().setValue(new Profile_DiemSV("NMHĐH",(float) 6.5));
+        //mData.child("user").child(mssv).child("result").push().setValue(new Profile_DiemSV("NMHĐH",(float) 6.5));
 
         //Use database DiemSV
         mlist = new ArrayList<>();
         final Profile_DiemSV_Adapter adapter=new Profile_DiemSV_Adapter(this,mlist);
         listView.setAdapter(adapter);
 
-        mData.child("monhoc").addChildEventListener(new ChildEventListener() {
+        mData.child("user").child(mssv).child("result").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Profile_DiemSV diemSV = dataSnapshot.getValue(Profile_DiemSV.class);
@@ -128,7 +139,6 @@ public class ProfileScreenActivity extends AppCompatActivity {
                 tvDTBs.setText(String.format("%.3g%n",m));
                 adapter.notifyDataSetChanged();
             }
-
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
