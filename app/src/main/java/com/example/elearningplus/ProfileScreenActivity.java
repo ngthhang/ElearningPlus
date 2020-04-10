@@ -41,7 +41,7 @@ public class ProfileScreenActivity extends AppCompatActivity {
     List<Profile_DiemSV> mlist;
     ImageButton imageButton;
     Button button;
-    TextView tvTenSV,tvMSSV;
+    TextView tvTenSV,tvMSSV,tvDTBs;
     FirebaseUser mUser;
     String mssv;
 
@@ -83,6 +83,7 @@ public class ProfileScreenActivity extends AppCompatActivity {
         mlist = new ArrayList<>();
         tvTenSV = findViewById( R.id.tvTenSV );
         tvMSSV = findViewById( R.id.tvMSSV );
+        tvDTBs = findViewById(R.id.tvDTBs);
 
         mData = FirebaseDatabase.getInstance().getReference();
         mUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -108,14 +109,18 @@ public class ProfileScreenActivity extends AppCompatActivity {
         } );
 
         studentGrade.addListenerForSingleValueEvent( new ValueEventListener() {
+            float k=0;
+            int i=0;
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()){
                     String name = snapshot.getKey();
                     Float grade = snapshot.getValue(Float.class);
                     mlist.add(new Profile_DiemSV( name,grade ));
+                    k+=grade;
+                    i+=1;
                 }
-
+                tvDTBs.setText(String.valueOf(k/i));
                 //gọi hàm để adapter cho mlist
                 display();
             }
