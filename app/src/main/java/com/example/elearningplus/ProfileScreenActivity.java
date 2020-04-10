@@ -127,11 +127,6 @@ public class ProfileScreenActivity extends AppCompatActivity {
         } );
 
         /* FINISH - LIST GRADE REALTIME DATABASE */
-
-
-
-
-
     }
 
     @Override
