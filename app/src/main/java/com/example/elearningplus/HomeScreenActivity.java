@@ -3,7 +3,6 @@ package com.example.elearningplus;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,52 +26,17 @@ public class HomeScreenActivity extends AppCompatActivity {
     public HomeAssignmentAdapter homeAssignmentAdapter;
     public ViewPager courseViewPager, assignmentViewPager;
     private DatabaseReference mData;
-    public TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
-        /* START - REALTIME DATABASE WITH FIREBASE */
-        final ArrayList<String> course = new ArrayList<>();
-
-        mData = FirebaseDatabase.getInstance().getReference();
-
-        final DatabaseReference studentCourse = mData.child( "user" ).child( "51800378").child( "course" );
-
-        studentCourse.addListenerForSingleValueEvent( new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
-                    course.add( snapshot.getValue(String.class));
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        } );
-
-
-        /* FINISH - REALTIME DATABASE WITH FIREBASE */
-
-
         /* START - VIEW PAGER ADAPTER */
 
         //create the list course fake data
         homeCourseList = new ArrayList<>(  );
-        homeCourseList.add( new HomeCourse( "Cấu trúc rời rạc","CTRR0101" ) );
-        homeCourseList.add( new HomeCourse( "Xác suất thống kê","XSTK1002" ) );
-        homeCourseList.add( new HomeCourse( "Cơ sở dữ liệu","CSDL111" ) );
-        homeCourseList.add( new HomeCourse( "Phương pháp tính", "PPT112" ) );
-
         homeAssignmentList = new ArrayList<>(  );
-        homeAssignmentList.add( new HomeAssignment( "Cấu trúc rời rạc","LAB1" ) );
-        homeAssignmentList.add( new HomeAssignment( "Cơ sở dữ liệu","LAB 7" ) );
-        homeAssignmentList.add( new HomeAssignment( "Xác suất thống kê","LAB 3" ) );
-        homeAssignmentList.add( new HomeAssignment( "Phương pháp tính", "LAB 9" ) );
 
         //create adapter for list course and assignment
         homeAssignmentAdapter = new HomeAssignmentAdapter( homeAssignmentList,this );
@@ -87,14 +51,31 @@ public class HomeScreenActivity extends AppCompatActivity {
         assignmentViewPager.setAdapter( homeAssignmentAdapter );
         assignmentViewPager.setPadding( 16,10, 300,20 );
 
-        /* FINISH - VIEW PAGER ADAPTER */
+//      /* FINISH - VIEW PAGER ADAPTER */
 
 
 
+        /* START - REALTIME DATABASE WITH FIREBASE */
+        mData = FirebaseDatabase.getInstance().getReference();
 
+        final DatabaseReference studentCourse = mData.child( "user" ).child( "51800378").child( "course" );
 
+        studentCourse.addListenerForSingleValueEvent( new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    String courseKey = snapshot.getValue(String.class);
+                    findCourse(courseKey);
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        } );
+
+        /* FINISH - REALTIME DATABASE WITH FIREBASE */
 
         /* START - HANDLE BOTTOM NAVIGATION */
         //Initial and assign variable
@@ -124,4 +105,55 @@ public class HomeScreenActivity extends AppCompatActivity {
         });
         /*FINISH - HANDLE BOTTOM NAVIGATION*/
     }
+
+    protected void findCourse(final String courseKey){
+        final DatabaseReference course =  mData.child( "course" );
+        course.addValueEventListener( new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.hasChild( courseKey )){
+                    final DatabaseReference mCourse = course.child( courseKey );
+                    final DatabaseReference mAssignment = mCourse.child( "assignment" );
+                    mCourse.addListenerForSingleValueEvent( new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String name = dataSnapshot.child( "name" ).getValue().toString();
+                            String id = dataSnapshot.child( "id" ).getValue().toString();
+                            homeCourseList.add( new HomeCourse( name,id ) );
+                            homeCourseAdapter.notifyDataSetChanged();
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    } );
+                    mAssignment.addListenerForSingleValueEvent( new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot ds: dataSnapshot.getChildren()){
+                                String courseAssign = ds.child( "name" ).getValue(String.class);
+                                String dueDate = ds.child( "due" ).getValue(String.class);
+                                String courseName = ds.child( "course" ).getValue(String.class);
+                                homeAssignmentList.add( new HomeAssignment( courseName,courseAssign,dueDate));
+                                homeAssignmentAdapter.notifyDataSetChanged();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    } );
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        } );
+    }
+
 }

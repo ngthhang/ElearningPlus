@@ -6,11 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.viewpager.widget.PagerAdapter;
-import 	android.content.res.Resources;
+
 import java.util.List;
 import java.util.Random;
 
@@ -62,6 +62,14 @@ public class HomeCourseAdapter extends PagerAdapter {
             random = new Random().nextInt(array_colors.length);
         }while (random == 14 || random == 15);
         relativeLayout.setBackgroundColor( array_colors[random]);
+
+        convertView.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast toast = Toast.makeText( context,"Done",Toast.LENGTH_SHORT );
+                toast.show();
+            }
+        } );
 
         container.addView( convertView,0 );
         return convertView;
