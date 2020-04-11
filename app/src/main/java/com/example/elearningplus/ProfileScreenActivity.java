@@ -179,7 +179,6 @@ public class ProfileScreenActivity extends AppCompatActivity {
                 startActivityForResult(intent,REQUEST_ID_IMAGE_CAPTURE);
             }
         });
-
         /* FINISH - ADAPTER FOR GRADE */
     }
 }
