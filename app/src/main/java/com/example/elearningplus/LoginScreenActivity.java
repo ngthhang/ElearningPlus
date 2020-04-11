@@ -12,9 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -45,7 +42,7 @@ public class LoginScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Login();
-            };
+            }
         });
         btnForgot.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +55,7 @@ public class LoginScreenActivity extends AppCompatActivity {
     private void Login(){
         String email = txtUser.getText().toString().trim();
         String password = txtPass.getText().toString().trim();
+
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
