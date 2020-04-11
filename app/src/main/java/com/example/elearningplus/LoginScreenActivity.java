@@ -58,7 +58,6 @@ public class LoginScreenActivity extends AppCompatActivity {
     private void Login(){
         String email = txtUser.getText().toString().trim();
         String password = txtPass.getText().toString().trim();
-
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override

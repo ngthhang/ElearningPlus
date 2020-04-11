@@ -1,50 +1,51 @@
 package com.example.elearningplus;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
+
 public class ProfileScreenActivity extends AppCompatActivity {
+
+    private DatabaseReference mData;
     private static final int REQUEST_ID_IMAGE_CAPTURE = 100;
-    private static final int REQUEST_ID_IMAGE_CHOOSE = 161;
-
-    public float k=0;
-    public int i=0;
-    public float m=0;
-
-    DatabaseReference mData;
     CircleImageView imgvAvatar;
     ListView listView;
     List<Profile_DiemSV> mlist;
     ImageButton imageButton;
     Button button;
-    TextView tvMSSV;
-    TextView tvTenSV;
-    TextView tvDTBs;
+    TextView tvTenSV,tvMSSV;
+    FirebaseUser mUser;
+    String mssv;
 
+    @SuppressLint("CutPasteId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,46 +77,12 @@ public class ProfileScreenActivity extends AppCompatActivity {
                 return false;
             }
         });
-
         /*FINISH - HANDLE BOTTOM NAVIGATION*/
 
-        //Ánh xạ
-        tvTenSV = findViewById(R.id.tvTenSV);
-        tvMSSV =findViewById(R.id.tvMSSV);
-        tvDTBs = findViewById(R.id.tvDTBs);
-        listView=findViewById(R.id.listDiemSV);
-
-        //Khởi tạo mData
-        mData = FirebaseDatabase.getInstance().getReference();
-
-        //Use database Ten
-        mData.child("student").child("-namez").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                tvTenSV.setText(dataSnapshot.getValue().toString());
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-        //Use database MSSV
-        mData.child("student").child("id").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                tvMSSV.setText(dataSnapshot.getValue().toString());
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-
-        //Add database
-        //mData.child("monhoc").push().setValue(new Profile_DiemSV("NMHĐH",(float) 6.5));
-
-        //Use database DiemSV
+        /* START - LIST GRADE REALTIME DATABASE */
         mlist = new ArrayList<>();
-        final Profile_DiemSV_Adapter adapter=new Profile_DiemSV_Adapter(this,mlist);
-        listView.setAdapter(adapter);
+        tvTenSV = findViewById( R.id.tvTenSV );
+        tvMSSV = findViewById( R.id.tvMSSV );
 
         mData.child("monhoc").addChildEventListener(new ChildEventListener() {
             @Override
@@ -128,20 +95,44 @@ public class ProfileScreenActivity extends AppCompatActivity {
                 tvDTBs.setText(String.format("%.3g%n",m));
                 adapter.notifyDataSetChanged();
             }
+        mData = FirebaseDatabase.getInstance().getReference();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+        mssv = mUser.getEmail();
+        mssv = mssv.replace("@gmail.com","").trim();
 
+        final DatabaseReference studentId = mData.child( "user" ).child(mssv);
+        final DatabaseReference studentName = studentId.child( "name" );
+        final DatabaseReference studentGrade = studentId.child( "result" );
+
+        tvMSSV.setText( studentId.getKey());
+        studentName.addValueEventListener( new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                tvTenSV.setText( dataSnapshot.getValue().toString() );
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
+        } );
 
+        studentGrade.addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    String name = snapshot.getKey();
+                    Float grade = snapshot.getValue(Float.class);
+                    mlist.add(new Profile_DiemSV( name,grade ));
+                }
 
+                //gọi hàm để adapter cho mlist
+                display();
             }
 
             @Override
@@ -149,6 +140,39 @@ public class ProfileScreenActivity extends AppCompatActivity {
 
             }
         });
+        } );
+
+        /* FINISH - LIST GRADE REALTIME DATABASE */
+
+
+
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==REQUEST_ID_IMAGE_CAPTURE && resultCode== RESULT_OK && data!=null) {
+            Bitmap bitmap2 = (Bitmap) data.getExtras().get("data");
+            imgvAvatar.setImageBitmap(bitmap2);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_profile,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    protected void display(){
+        /* START - ADAPTER FOR GRADE */
+        //Add database DiemSV
+        //Truyền dữ liệu vào adapter
+        listView=findViewById(R.id.listDiemSV);
+        Profile_DiemSV_Adapter adapter=new Profile_DiemSV_Adapter(this,mlist);
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
 
         //Thiết lập sự kiện button log out
@@ -161,58 +185,17 @@ public class ProfileScreenActivity extends AppCompatActivity {
             }
         });
 
-        //button, imagebutton Camera
+        //Thiết lập sự kiện imagebutton Camera
         imgvAvatar = findViewById(R.id.imgAvatar);
         imageButton = findViewById(R.id.imgbCamera);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowMenu();
+                Intent intent = new Intent( MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent,REQUEST_ID_IMAGE_CAPTURE);
             }
         });
-    }
 
-    //Menu for Camera
-    private void ShowMenu(){
-        final PopupMenu popupMenu = new PopupMenu(this,imageButton);
-        popupMenu.getMenuInflater().inflate(R.menu.menu_profile,popupMenu.getMenu());
-        popupMenu.show();
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.menuChup:
-                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        startActivityForResult(intent,REQUEST_ID_IMAGE_CAPTURE);
-                        break;
-                    case R.id.menuChon:
-                        Intent intent1 = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        startActivityForResult(intent1,REQUEST_ID_IMAGE_CHOOSE);
-                        break;
-                }
-                return false;
-            }
-        });
-    }
-
-    //Make a photo
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        //Capture
-        if (requestCode==REQUEST_ID_IMAGE_CAPTURE && resultCode== RESULT_OK && data!=null) {
-            Bitmap bitmap1 = (Bitmap) data.getExtras().get("data");
-            imgvAvatar.setImageBitmap(bitmap1);
-        }
-        else if(requestCode == REQUEST_ID_IMAGE_CHOOSE && resultCode == RESULT_OK) {
-            try {
-                //Choose
-                Uri imageUri = data.getData();
-                Bitmap bitmap2 = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-                imgvAvatar.setImageBitmap(bitmap2);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        /* FINISH - ADAPTER FOR GRADE */
     }
 }

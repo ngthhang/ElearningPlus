@@ -107,13 +107,13 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:layout_weight="1"
             android:id="@+id/tvMSSV"
             android:layout_width="match_parent"
             android:layout_height="32dp"
             android:layout_marginBottom="10dp"
+            android:layout_weight="1"
             android:gravity="center"
-            android:text="51800465"
+            android:text="MSSV"
             android:textColor="@color/colorBlue6"
             android:textSize="16sp"
             android:textStyle="bold" />
