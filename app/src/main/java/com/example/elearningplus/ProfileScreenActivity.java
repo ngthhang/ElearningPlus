@@ -85,22 +85,9 @@ public class ProfileScreenActivity extends AppCompatActivity {
         tvMSSV = findViewById( R.id.tvMSSV );
         tvDTBs = findViewById(R.id.tvDTBs);
 
-        mData.child("monhoc").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Profile_DiemSV diemSV = dataSnapshot.getValue(Profile_DiemSV.class);
-                mlist.add(new Profile_DiemSV(diemSV.tenMH,diemSV.diemMH));
-                i+=1;
-                k=k+diemSV.diemMH;
-                m=k/i;
-                tvDTBs.setText(String.format("%.3g%n",m));
-                adapter.notifyDataSetChanged();
-            }
         mData = FirebaseDatabase.getInstance().getReference();
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
         mssv = mUser.getEmail();
         mssv = mssv.replace("@gmail.com","").trim();
 
@@ -116,7 +103,6 @@ public class ProfileScreenActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
@@ -126,7 +112,6 @@ public class ProfileScreenActivity extends AppCompatActivity {
             float k=0;
             int i=0;
             @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()){
                     String name = snapshot.getKey();
@@ -144,7 +129,6 @@ public class ProfileScreenActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
         } );
 
         /* FINISH - LIST GRADE REALTIME DATABASE */
