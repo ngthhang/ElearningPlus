@@ -1,8 +1,5 @@
 package com.example.elearningplus;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,6 +25,7 @@ public class LoginScreenActivity extends AppCompatActivity {
     TextView tvResetPassWord;
     EditText etResetPassWord;
     Button btnResetPassWord;
+    Toast error;
 
     public static String mssv;
     @Override
@@ -56,19 +57,24 @@ public class LoginScreenActivity extends AppCompatActivity {
         String email = txtUser.getText().toString().trim();
         String password = txtPass.getText().toString().trim();
 
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(LoginScreenActivity.this,"Đăng Nhập thành công",Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginScreenActivity.this,HomeScreenActivity.class);
-                            startActivity(intent);
-                        } else {
-                            Toast.makeText(LoginScreenActivity.this,"Email hoặc mật khẩu sai",Toast.LENGTH_SHORT).show();
+        if(email.isEmpty() || email == null || password.isEmpty() || password == null){
+            error = Toast.makeText( LoginScreenActivity.this,"Vui lòng nhập đủ thông tin",Toast.LENGTH_SHORT );
+            error.show();
+        }else {
+            mAuth.signInWithEmailAndPassword( email, password )
+                    .addOnCompleteListener( this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText( LoginScreenActivity.this, "Đăng Nhập thành công", Toast.LENGTH_SHORT ).show();
+                                Intent intent = new Intent( LoginScreenActivity.this, HomeScreenActivity.class );
+                                startActivity( intent );
+                            } else {
+                                Toast.makeText( LoginScreenActivity.this, "Email hoặc mật khẩu sai", Toast.LENGTH_SHORT ).show();
+                            }
                         }
-                    }
-                });
+                    } );
+        }
     }
 
     public void ResetPassWord(){

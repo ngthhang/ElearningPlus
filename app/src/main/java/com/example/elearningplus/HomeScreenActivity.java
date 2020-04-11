@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,11 +28,19 @@ public class HomeScreenActivity extends AppCompatActivity {
     public HomeAssignmentAdapter homeAssignmentAdapter;
     public ViewPager courseViewPager, assignmentViewPager;
     private DatabaseReference mData;
+    private FirebaseUser mUser;
+    String studentId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+
+        // GET CURRENT USER
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        studentId = mUser.getEmail();
+        studentId= studentId.replace("@gmail.com","").trim();
 
         /* START - VIEW PAGER ADAPTER */
 
@@ -58,7 +68,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         /* START - REALTIME DATABASE WITH FIREBASE */
         mData = FirebaseDatabase.getInstance().getReference();
 
-        final DatabaseReference studentCourse = mData.child( "user" ).child( "51800378").child( "course" );
+        final DatabaseReference studentCourse = mData.child( "user" ).child(studentId).child( "course" );
 
         studentCourse.addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
