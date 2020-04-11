@@ -4,6 +4,9 @@ public class Profile_DiemSV {
     String tenMH;
     float diemMH;
 
+    public Profile_DiemSV() {
+    }
+
     public Profile_DiemSV(String tenMH, float diemMH) {
         this.tenMH = tenMH;
         this.diemMH = diemMH;
