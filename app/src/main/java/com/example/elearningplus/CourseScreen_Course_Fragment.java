@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,7 +32,7 @@ public class CourseScreen_Course_Fragment extends Fragment implements CourseScre
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.course_fragment, container, false);
+        view = inflater.inflate(R.layout.CourseScreen_Course_Fragment, container, false);
         myrecycleview = (RecyclerView) view.findViewById(R.id.course_recyclerview);
         CourseScreen_Course_RecyclerView_Adapter recyclerViewAdapter = new CourseScreen_Course_RecyclerView_Adapter(getContext(), listCourse,this);
         myrecycleview.setLayoutManager(new LinearLayoutManager(getActivity()));

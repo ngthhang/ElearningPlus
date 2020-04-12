@@ -27,7 +27,7 @@ public class CourseScreen_Assignment_RecyclerView_Adapter extends RecyclerView.A
     @Override
     public MyViewHodler onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.assignment_layout, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.CourseScreen_Assignment_Layout, parent, false);
         MyViewHodler vHolder = new MyViewHodler(view, onNoteListener);
 
         return vHolder;
