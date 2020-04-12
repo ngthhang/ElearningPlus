@@ -63,6 +63,7 @@ public class HomeCourseAdapter extends PagerAdapter {
 
         container.addView( convertView,0 );
         return convertView;
+
     }
 
     @Override
