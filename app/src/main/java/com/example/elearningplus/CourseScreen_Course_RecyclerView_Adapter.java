@@ -15,19 +15,20 @@ public class CourseScreen_Course_RecyclerView_Adapter extends RecyclerView.Adapt
 
     Context mContext;
     List<CourseScreen_Course> mData;
+    private OnNoteListener mOnNoteListener;
 
-    public CourseScreen_Course_RecyclerView_Adapter(Context mContext, List<CourseScreen_Course> mData) {
+    public CourseScreen_Course_RecyclerView_Adapter(Context mContext, List<CourseScreen_Course> mData, OnNoteListener onNoteListener) {
         this.mContext = mContext;
         this.mData = mData;
+        this.mOnNoteListener = onNoteListener;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view;
-        view = LayoutInflater.from(mContext).inflate(R.layout.course_layout, parent, false);
-        MyViewHolder vHolder = new MyViewHolder(view);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.CourseScreen_Course_Layout, parent, false);
+        MyViewHolder vHolder = new MyViewHolder(view, mOnNoteListener);
 
         return vHolder;
     }
@@ -45,17 +46,30 @@ public class CourseScreen_Course_RecyclerView_Adapter extends RecyclerView.Adapt
         return mData.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        private TextView tv_Chapter;
-        private TextView tv_Intro;
+        private TextView tv_Chapter, tv_Intro;
+        OnNoteListener onNoteListener;
 
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
             super(itemView);
 
             tv_Chapter = (TextView) itemView.findViewById(R.id.txt1);
             tv_Intro = (TextView) itemView.findViewById(R.id.txt2);
+
+            this.onNoteListener = onNoteListener;
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            onNoteListener.onNoteClick(getAdapterPosition());
         }
     }
+
+    public interface OnNoteListener{
+        void onNoteClick(int position);
+    }
+
 }

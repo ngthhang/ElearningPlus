@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.Random;
+
 public class CourseScreenActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
@@ -31,6 +33,10 @@ public class CourseScreenActivity extends AppCompatActivity {
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+
+        assert getSupportActionBar() != null;
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         /*START - HANDLE BOTTOM NAVIGATION */
         //Initial and assign variable
@@ -60,5 +66,11 @@ public class CourseScreenActivity extends AppCompatActivity {
             }
         });
         /*FINISH - HANDLE BOTTOM NAVIGATION*/
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 }
