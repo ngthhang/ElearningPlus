@@ -27,7 +27,7 @@ public class CourseScreen_Assignment_Fragment extends Fragment implements Course
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view =inflater.inflate(R.layout.CourseScreen_Assignment_Fragment, container, false);
+        view =inflater.inflate(R.layout.coursescreen_course_fragmentt, container, false);
         myrecyclerView = (RecyclerView) view.findViewById(R.id.assignment_recyclerview);
         CourseScreen_Assignment_RecyclerView_Adapter assignment_adapter = new CourseScreen_Assignment_RecyclerView_Adapter(getContext(), listAssignment, this);
         myrecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
