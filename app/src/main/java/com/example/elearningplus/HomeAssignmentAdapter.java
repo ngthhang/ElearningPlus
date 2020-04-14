@@ -40,19 +40,19 @@ public class HomeAssignmentAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         layoutInflater = LayoutInflater.from( context );
-        View convertView  = layoutInflater.inflate( R.layout.home_course_item,container,false );
+        View convertView  = layoutInflater.inflate( R.layout.home_assignment_item,container,false );
 
-        TextView courseName,courseAssignment;
+        TextView dueDate,courseAssignment,courseName;
         RelativeLayout relativeLayout;
 
-
         courseName = convertView.findViewById( R.id.course_name );
-        courseAssignment = convertView.findViewById( R.id.course_id );
+        dueDate = convertView.findViewById( R.id.course_due );
+        courseAssignment = convertView.findViewById( R.id.course_assignment );
         relativeLayout = convertView.findViewById( R.id.layout_card );
 
-        courseName.setText( homeAssignmentList.get( position ).getCourseName() );
+        dueDate.setText( "Due:\t"+homeAssignmentList.get( position ).getDueDate() );
         courseAssignment.setText( homeAssignmentList.get( position ).getCourseAssignment() );
-
+        courseName.setText( homeAssignmentList.get( position ).getCourseName() );
 
         //random color
         int random;

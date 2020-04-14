@@ -73,7 +73,7 @@
                 android:layout_marginEnd="130dp"
                 android:layout_marginRight="130dp"
                 android:layout_marginBottom="20dp"
-                android:src="@drawable/giang" />
+                android:src="@drawable/no_avatar" />
 
             <ImageButton
                 android:id="@+id/imgbCamera"
@@ -95,7 +95,7 @@
 
         <TextView
             android:layout_weight="1"
-            android:id="@+id/textView7"
+            android:id="@+id/tvTenSV"
             android:layout_width="match_parent"
             android:layout_height="47dp"
             android:gravity="center"
@@ -107,13 +107,13 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:layout_weight="1"
             android:id="@+id/tvMSSV"
             android:layout_width="match_parent"
             android:layout_height="32dp"
             android:layout_marginBottom="10dp"
+            android:layout_weight="1"
             android:gravity="center"
-            android:text="51800465"
+            android:text="MSSV"
             android:textColor="@color/colorBlue6"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -152,7 +152,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="8.8/10"
+                android:text="0.00"
                 android:textColor="@color/colorYellow2"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -163,6 +163,7 @@
             android:id="@+id/listDiemSV"
             android:layout_width="match_parent"
             android:layout_height="153dp"
+            android:divider="@null"
             android:layout_centerHorizontal="true" />
 
         <Button

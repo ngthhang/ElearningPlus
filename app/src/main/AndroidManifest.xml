@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AssignmentViewScreen" android:label="Assignment"></activity>
+        <activity android:name=".AssignmentViewScreen" android:label="Assignment">
+
+        </activity>
         <activity android:name=".ChapterViewScreenActivity" />
         <activity android:name=".NotificationScreenActivity" android:label="Notification"/>
         <activity android:name=".LoginScreenActivity" android:theme="@style/AppThemes">
@@ -23,26 +25,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".HomeScreenActivity" android:label="Home">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".BottomTab">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".ProfileScreenActivity" android:label="Profile"/>
         <activity android:name=".CourseScreenActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

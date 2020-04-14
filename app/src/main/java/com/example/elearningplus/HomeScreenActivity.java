@@ -1,14 +1,21 @@
 package com.example.elearningplus;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,27 +27,26 @@ public class HomeScreenActivity extends AppCompatActivity {
     public HomeCourseAdapter homeCourseAdapter;
     public HomeAssignmentAdapter homeAssignmentAdapter;
     public ViewPager courseViewPager, assignmentViewPager;
+    private DatabaseReference mData;
+    private FirebaseUser mUser;
+    String studentId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
+        // GET CURRENT USER
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        studentId = mUser.getEmail();
+        studentId= studentId.replace("@gmail.com","").trim();
 
         /* START - VIEW PAGER ADAPTER */
 
         //create the list course fake data
         homeCourseList = new ArrayList<>(  );
-        homeCourseList.add( new HomeCourse( "Cấu trúc rời rạc","CTRR0101" ) );
-        homeCourseList.add( new HomeCourse( "Xác suất thống kê","XSTK1002" ) );
-        homeCourseList.add( new HomeCourse( "Cơ sở dữ liệu","CSDL111" ) );
-        homeCourseList.add( new HomeCourse( "Phương pháp tính", "PPT112" ) );
-
         homeAssignmentList = new ArrayList<>(  );
-        homeAssignmentList.add( new HomeAssignment( "Cấu trúc rời rạc","LAB1" ) );
-        homeAssignmentList.add( new HomeAssignment( "Cơ sở dữ liệu","LAB 7" ) );
-        homeAssignmentList.add( new HomeAssignment( "Xác suất thống kê","LAB 3" ) );
-        homeAssignmentList.add( new HomeAssignment( "Phương pháp tính", "LAB 9" ) );
 
         //create adapter for list course and assignment
         homeAssignmentAdapter = new HomeAssignmentAdapter( homeAssignmentList,this );
@@ -55,28 +61,31 @@ public class HomeScreenActivity extends AppCompatActivity {
         assignmentViewPager.setAdapter( homeAssignmentAdapter );
         assignmentViewPager.setPadding( 16,10, 300,20 );
 
+//      /* FINISH - VIEW PAGER ADAPTER */
 
-        // handle change page on list course
-        courseViewPager.setOnPageChangeListener( new ViewPager.OnPageChangeListener() {
+
+
+        /* START - REALTIME DATABASE WITH FIREBASE */
+        mData = FirebaseDatabase.getInstance().getReference();
+
+        final DatabaseReference studentCourse = mData.child( "user" ).child(studentId).child( "course" );
+
+        studentCourse.addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    String courseKey = snapshot.getValue(String.class);
+                    findCourse(courseKey);
+                }
             }
 
             @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         } );
 
-        /* FINISH - VIEW PAGER ADAPTER */
-
-
+        /* FINISH - REALTIME DATABASE WITH FIREBASE */
 
         /* START - HANDLE BOTTOM NAVIGATION */
         //Initial and assign variable
@@ -106,4 +115,55 @@ public class HomeScreenActivity extends AppCompatActivity {
         });
         /*FINISH - HANDLE BOTTOM NAVIGATION*/
     }
+
+    protected void findCourse(final String courseKey){
+        final DatabaseReference course =  mData.child( "course" );
+        course.addValueEventListener( new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.hasChild( courseKey )){
+                    final DatabaseReference mCourse = course.child( courseKey );
+                    final DatabaseReference mAssignment = mCourse.child( "assignment" );
+                    mCourse.addListenerForSingleValueEvent( new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String name = dataSnapshot.child( "name" ).getValue().toString();
+                            String id = dataSnapshot.child( "id" ).getValue().toString();
+                            homeCourseList.add( new HomeCourse( name,id ) );
+                            homeCourseAdapter.notifyDataSetChanged();
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    } );
+                    mAssignment.addListenerForSingleValueEvent( new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot ds: dataSnapshot.getChildren()){
+                                String courseAssign = ds.child( "name" ).getValue(String.class);
+                                String dueDate = ds.child( "due" ).getValue(String.class);
+                                String courseName = ds.child( "course" ).getValue(String.class);
+                                homeAssignmentList.add( new HomeAssignment( courseName,courseAssign,dueDate));
+                                homeAssignmentAdapter.notifyDataSetChanged();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    } );
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        } );
+    }
+
 }
