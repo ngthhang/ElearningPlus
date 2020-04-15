@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class CourseScreen_Course_RecyclerView_Adapter extends RecyclerView.Adapter<CourseScreen_Course_RecyclerView_Adapter.MyViewHolder> {
+public class CourseScreen_Course_Adapter extends RecyclerView.Adapter<CourseScreen_Course_Adapter.MyViewHolder> {
 
     Context mContext;
     List<CourseScreen_Course> mData;
     private OnNoteListener mOnNoteListener;
 
-    public CourseScreen_Course_RecyclerView_Adapter(Context mContext, List<CourseScreen_Course> mData, OnNoteListener onNoteListener) {
+    public CourseScreen_Course_Adapter(Context mContext, List<CourseScreen_Course> mData, OnNoteListener onNoteListener) {
         this.mContext = mContext;
         this.mData = mData;
         this.mOnNoteListener = onNoteListener;
@@ -27,7 +27,7 @@ public class CourseScreen_Course_RecyclerView_Adapter extends RecyclerView.Adapt
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.CourseScreen_Course_Layout, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.coursescreen_course_layout, parent, false);
         MyViewHolder vHolder = new MyViewHolder(view, mOnNoteListener);
 
         return vHolder;

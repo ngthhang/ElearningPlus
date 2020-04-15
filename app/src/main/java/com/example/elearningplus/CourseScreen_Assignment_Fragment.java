@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class CourseScreen_Assignment_Fragment extends Fragment implements CourseScreen_Assignment_RecyclerView_Adapter.OnNoteListener {
+public class CourseScreen_Assignment_Fragment extends Fragment implements CourseScreen_Assignment_Adapter.OnNoteListener {
 
     View view;
     private RecyclerView myrecyclerView;
@@ -27,9 +27,9 @@ public class CourseScreen_Assignment_Fragment extends Fragment implements Course
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view =inflater.inflate(R.layout.coursescreen_course_fragmentt, container, false);
+        view =inflater.inflate(R.layout.coursescreen_assignment_fragment, container, false);
         myrecyclerView = (RecyclerView) view.findViewById(R.id.assignment_recyclerview);
-        CourseScreen_Assignment_RecyclerView_Adapter assignment_adapter = new CourseScreen_Assignment_RecyclerView_Adapter(getContext(), listAssignment, this);
+        CourseScreen_Assignment_Adapter assignment_adapter = new CourseScreen_Assignment_Adapter(getContext(), listAssignment, this);
         myrecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         myrecyclerView.setAdapter(assignment_adapter);
 
