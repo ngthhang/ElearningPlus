@@ -31,7 +31,6 @@ public class CourseScreen_Assignment_Fragment extends Fragment implements Course
         CourseScreen_Assignment_Adapter assignment_adapter = new CourseScreen_Assignment_Adapter(getContext(), listAssignment, this);
         myrecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         myrecyclerView.setAdapter(assignment_adapter);
-
         return view;
     }
 
