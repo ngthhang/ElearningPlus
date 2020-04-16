@@ -3,4 +3,5 @@
     <string name="login_input_email"><u>Enter your email</u></string>
     <string name="login_input_pass"><u>Enter your password</u></string>
     <string name="login_forgot_pass"><u>Forgot password?</u></string>
+    <string name="submit_input"><u>Enter your submit</u></string>
 </resources>

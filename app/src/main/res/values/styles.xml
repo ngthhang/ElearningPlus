@@ -14,4 +14,11 @@
         <item name="colorPrimaryDark">@color/colorBlue5</item>
         <item name="colorAccent">@color/colorPurple1</item>
     </style>
+
+    <style name="TabLayoutTextStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#BDBDBD</item>
+        <item name="android:textScaleX">10</item>
+    </style>
 </resources>
