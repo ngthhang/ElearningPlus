@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class CourseScreen_Assignment_Fragment extends Fragment implements CourseScreen_Assignment_Adapter.OnNoteListener {
 
@@ -32,11 +31,11 @@ public class CourseScreen_Assignment_Fragment extends Fragment implements Course
         CourseScreen_Assignment_Adapter assignment_adapter = new CourseScreen_Assignment_Adapter(getContext(), listAssignment, this);
         myrecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         myrecyclerView.setAdapter(assignment_adapter);
-
-        do{
-            random = new Random().nextInt(array_colors.length);
-        } while (random == 14 || random == 15);
-        myrecyclerView.setBackgroundColor(array_colors[random]);
+//
+//        do{
+//            random = new Random().nextInt(array_colors.length);
+//        } while (random == 14 || random == 15);
+//        myrecyclerView.setBackgroundColor(array_colors[random]);
         container.addView(view, 0);
 
         return view;

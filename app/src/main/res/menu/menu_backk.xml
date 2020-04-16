@@ -6,5 +6,7 @@
         android:id="@+id/menuBackk"
         android:icon="@drawable/backk"
         app:showAsAction="always"
+        android:iconTint="@color/colorWhite1"
+
         />
 </menu>

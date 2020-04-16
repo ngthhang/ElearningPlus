@@ -164,7 +164,7 @@ public class ProfileScreenActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ProfileScreenActivity.this,AssignmentViewScreen.class);
+                Intent intent = new Intent(ProfileScreenActivity.this,LoginScreenActivity.class);
                 startActivity(intent);
             }
         });

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="414dp"
@@ -23,6 +23,7 @@
 
         <TextView
             android:layout_weight="1"
+            android:paddingLeft="18dp"
             android:textStyle="bold"
             android:layout_margin="10dp"
             android:textColor="@color/colorBlue6"
@@ -30,42 +31,54 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="LAB 1 - EXERCISE WEEK 1"
-            android:textSize="26sp" />
+            android:textSize="20dp"
+          />
 
-        <TextView
-            android:id="@+id/tvDue"
-            android:paddingLeft="10dp"
+        <androidx.cardview.widget.CardView
+            app:cardBackgroundColor="@color/colorPink1"
+            app:contentPaddingLeft="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
+            app:contentPaddingTop="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_weight="2"
-            android:background="@drawable/assigntment_view_botron_textview"
+            app:cardCornerRadius="10sp"
+        >
+        <TextView
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:id="@+id/tvDue"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite1"
             android:text="  Due: 11/01/2020 12pm\n  Point: 0\n  Submitting: a file upload"
-            android:textSize="24sp" />
-
+            android:textSize="18sp" />
+        </androidx.cardview.widget.CardView>
         <ScrollView
             android:layout_weight="4"
+            android:fillViewport="true"
             android:layout_width="match_parent"
-            android:layout_height="243dp">
+            android:layout_height="250dp">
 
-            <TextView
-                android:layout_margin="24dp"
-                android:id="@+id/tvContent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:textColor="@color/colorBlue7"
-                android:text="Sinh viên hoàn tất các yêu cầu của giảng viên LAB và nén tất cả các file vào thư mục tên là LAB2_MSSS_NHOM##_TO#.rar " />
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent">
+               <TextView
+                   android:layout_margin="24dp"
+                   android:id="@+id/tvContent"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:textSize="18sp"
+                   android:textColor="@color/colorBlue6"
+                   android:text="Sinh viên hoàn tất các yêu cầu của giảng viên LAB và nén tất cả các file vào thư mục tên là LAB2_MSSS_NHOM##_TO#.rar " />
 
-
+           </LinearLayout>
         </ScrollView>
 
         <TextView
             android:layout_weight="1"
-            android:textSize="24dp"
+            android:textSize="20dp"
+            android:textColor="#000000"
             android:textStyle="bold"
             android:layout_marginLeft="30dp"
             android:id="@+id/textView"
@@ -76,15 +89,15 @@
 
         <EditText
             android:layout_weight="1"
-            android:paddingLeft="10dp"
+            android:paddingLeft="20dp"
             android:id="@+id/edtUrl"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:background="@drawable/assignment_view_botron_vien_url"
             android:ems="10"
-            android:hint="Nhập URL"
+            android:hint="@string/submit_input"
             android:inputType="textPersonName"
             android:textSize="16sp" />
 
@@ -97,7 +110,8 @@
             android:layout_gravity="center"
             android:layout_width="200dp"
             android:background="@drawable/profile_botron_button"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
+            android:textStyle="bold"
             android:layout_centerHorizontal="true"
             android:text="SUBMIT" />
 

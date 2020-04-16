@@ -16,11 +16,13 @@ public class CourseScreen_Course_Adapter extends RecyclerView.Adapter<CourseScre
     Context mContext;
     List<CourseScreen_Course> mData;
     private OnNoteListener mOnNoteListener;
+    int[] array_colors = null;
 
     public CourseScreen_Course_Adapter(Context mContext, List<CourseScreen_Course> mData, OnNoteListener onNoteListener) {
         this.mContext = mContext;
         this.mData = mData;
         this.mOnNoteListener = onNoteListener;
+        this.array_colors =mContext.getResources().getIntArray(R.array.color_array);
     }
 
     @NonNull
@@ -29,7 +31,6 @@ public class CourseScreen_Course_Adapter extends RecyclerView.Adapter<CourseScre
 
         View view = LayoutInflater.from(mContext).inflate(R.layout.coursescreen_course_layout, parent, false);
         MyViewHolder vHolder = new MyViewHolder(view, mOnNoteListener);
-
         return vHolder;
     }
 
