@@ -17,7 +17,8 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Diem qua trinh 1"
+            android:text="Progress Test 1"
+            android:textColor="@color/colorBlue6"
             android:paddingLeft="10dp" />
 
         <TextView
@@ -54,6 +55,7 @@
             android:gravity="center"
             android:textSize="18sp"
             android:text="10/10%"
+            android:textColor="@color/colorPink3"
             android:textStyle="bold" />
 
     </LinearLayout>

@@ -70,6 +70,8 @@ public class CourseScreenActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp(){
+        Intent i = new Intent( this,HomeScreenActivity.class );
+        startActivity( i );
         finish();
         return true;
     }

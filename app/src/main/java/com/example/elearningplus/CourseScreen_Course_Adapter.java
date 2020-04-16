@@ -4,17 +4,20 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Random;
 
 public class CourseScreen_Course_Adapter extends RecyclerView.Adapter<CourseScreen_Course_Adapter.MyViewHolder> {
 
     Context mContext;
     List<CourseScreen_Course> mData;
+
     private OnNoteListener mOnNoteListener;
     int[] array_colors = null;
 
@@ -30,7 +33,7 @@ public class CourseScreen_Course_Adapter extends RecyclerView.Adapter<CourseScre
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(mContext).inflate(R.layout.coursescreen_course_layout, parent, false);
-        MyViewHolder vHolder = new MyViewHolder(view, mOnNoteListener);
+        MyViewHolder vHolder = new MyViewHolder(view, mOnNoteListener, array_colors);
         return vHolder;
     }
 
@@ -53,11 +56,20 @@ public class CourseScreen_Course_Adapter extends RecyclerView.Adapter<CourseScre
         OnNoteListener onNoteListener;
 
 
-        public MyViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
+        public MyViewHolder(@NonNull View itemView, OnNoteListener onNoteListener, int[] array_colors) {
             super(itemView);
 
             tv_Chapter = (TextView) itemView.findViewById(R.id.txt1);
             tv_Intro = (TextView) itemView.findViewById(R.id.txt2);
+            LinearLayout linearLayout = itemView.findViewById( R.id.course_lesson_item );
+
+            //random color
+            int random;
+            do{
+                random = new Random().nextInt(array_colors.length);
+            } //handle select background white
+            while (random==14 || random== 15);
+            linearLayout.setBackgroundColor( array_colors[random] );
 
             this.onNoteListener = onNoteListener;
             itemView.setOnClickListener(this);
