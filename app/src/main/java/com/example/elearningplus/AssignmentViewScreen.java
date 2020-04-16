@@ -48,42 +48,12 @@ public class AssignmentViewScreen extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("my_data",Context.MODE_PRIVATE);
 
-
         courseDtb = FirebaseDatabase.getInstance().getReference();
         tvLab = findViewById(R.id.tvLab);
         tvContent = findViewById(R.id.tvContent);
         tvDue = findViewById(R.id.tvDue);
         edtUrl = findViewById(R.id.edtUrl);
         btnSubmit = findViewById(R.id.btnSubmit);
-
-
-//        /*START - HANDLE BOTTOM NAVIGATION */
-//        //Initial and assign variable
-//        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-//
-//        //set Home selected
-//        bottomNavigationView.setSelectedItemId(R.id.home);
-//
-//        // handle click item in bottom_navigation
-//        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-//                switch (menuItem.getItemId()){
-//                    case R.id.profile:
-//                        startActivity(new Intent(getApplicationContext(), ProfileScreenActivity.class));
-//                        overridePendingTransition(0,0);
-//                        return true;
-//                    case R.id.home:
-//                        return true;
-//                    case R.id.notification:
-//                        startActivity(new Intent(getApplicationContext(), NotificationScreenActivity.class));
-//                        overridePendingTransition(0,0);
-//                        return true;
-//                }
-//                return false;
-//            }
-//        });
-//        /*FINISH - HANDLE BOTTOM NAVIGATION*/
 
         mCuorse = courseDtb.child("course").child("CSDL").child("assignment").child("0");
         mCuorse.child("name").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -94,8 +64,7 @@ public class AssignmentViewScreen extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
 
         mCuorse.child("due").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -108,10 +77,8 @@ public class AssignmentViewScreen extends AppCompatActivity {
                 due ="Due: "+due + "\nPoint: 0\nSubmitting: a file upload";
                 tvDue.setText(due);
             }
-
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
 
         mCuorse.child("content").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -122,8 +89,7 @@ public class AssignmentViewScreen extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
 
         edtUrl.addTextChangedListener(new TextWatcher() {
