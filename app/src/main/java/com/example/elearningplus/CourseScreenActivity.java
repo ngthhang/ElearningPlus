@@ -30,6 +30,7 @@ public class CourseScreenActivity extends AppCompatActivity {
         CourseScreen_ViewPager_Adapter adapter = new CourseScreen_ViewPager_Adapter(getSupportFragmentManager());
         adapter.AddFragment(new CourseScreen_Course_Fragment(), "Course");
         adapter.AddFragment(new CourseScreen_Assignment_Fragment(), "Assignment");
+        adapter.AddFragment(new CourseScreen_Grade_Fragment(), "Grade");
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
