@@ -20,8 +20,6 @@ public class CourseScreen_Course_Fragment extends Fragment implements CourseScre
     View view;
     private RecyclerView myrecycleview;
     private List<CourseScreen_Course> listCourse;
-    int random;
-
 
     public CourseScreen_Course_Fragment(){
     }
@@ -35,13 +33,6 @@ public class CourseScreen_Course_Fragment extends Fragment implements CourseScre
         CourseScreen_Course_Adapter recyclerViewAdapter = new CourseScreen_Course_Adapter(getContext(), listCourse,this);
         myrecycleview.setLayoutManager(new LinearLayoutManager(getActivity()));
         myrecycleview.setAdapter(recyclerViewAdapter);
-
-//        do{
-//            random = new Random().nextInt(array_colors.length);
-//        } while (random == 14 || random == 15);
-//        myrecycleview.setBackgroundColor(array_colors[random]);
-        container.addView(view, 0);
-
 
         return view;
     }

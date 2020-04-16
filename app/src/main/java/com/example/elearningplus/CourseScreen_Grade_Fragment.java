@@ -28,6 +28,7 @@ public class CourseScreen_Grade_Fragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.coursescreen_grade_fragment, container, false);
+        myrecyclerView = (RecyclerView) view.findViewById(R.id.grade_recyclerview);
         CourseScreen_Grade_Adapter gradeAdapter = new CourseScreen_Grade_Adapter(getContext(), listGrade);
         myrecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         myrecyclerView.setAdapter(gradeAdapter);

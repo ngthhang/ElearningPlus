@@ -20,23 +20,16 @@ public class CourseScreen_Assignment_Fragment extends Fragment implements Course
     View view;
     private RecyclerView myrecyclerView;
     private List<CourseScreen_Assignment> listAssignment;
-    int[] array_colors = null;
-    int random;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         view =inflater.inflate(R.layout.coursescreen_assignment_fragment, container, false);
         myrecyclerView = (RecyclerView) view.findViewById(R.id.assignment_recyclerview);
         CourseScreen_Assignment_Adapter assignment_adapter = new CourseScreen_Assignment_Adapter(getContext(), listAssignment, this);
         myrecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         myrecyclerView.setAdapter(assignment_adapter);
-//
-//        do{
-//            random = new Random().nextInt(array_colors.length);
-//        } while (random == 14 || random == 15);
-//        myrecyclerView.setBackgroundColor(array_colors[random]);
-        container.addView(view, 0);
 
         return view;
     }
