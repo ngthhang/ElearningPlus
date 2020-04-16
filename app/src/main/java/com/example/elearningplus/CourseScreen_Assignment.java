@@ -5,13 +5,11 @@ public class CourseScreen_Assignment {
     private String nLab;
     private String nText;
     private String nDay;
-    private String nTime;
 
-    public CourseScreen_Assignment(String nLab, String nText, String nDay, String nTime) {
+    public CourseScreen_Assignment(String nLab, String nText, String nDay) {
         this.nLab = nLab;
         this.nText = nText;
         this.nDay = nDay;
-        this.nTime = nTime;
     }
 
     public String getnLab() {
@@ -36,13 +34,5 @@ public class CourseScreen_Assignment {
 
     public void setnDay(String nDay) {
         this.nDay = nDay;
-    }
-
-    public String getnTime() {
-        return nTime;
-    }
-
-    public void setnTime(String nTime) {
-        this.nTime = nTime;
     }
 }

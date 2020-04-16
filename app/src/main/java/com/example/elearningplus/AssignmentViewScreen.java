@@ -30,7 +30,7 @@ import java.util.Calendar;
 
 public class AssignmentViewScreen extends AppCompatActivity {
     DatabaseReference courseDtb;
-    DatabaseReference mCuorse;
+    DatabaseReference mCourse;
     TextView tvLab, tvDue, tvContent;
     EditText edtUrl;
     Button btnSubmit;
@@ -81,8 +81,8 @@ public class AssignmentViewScreen extends AppCompatActivity {
 //        });
 //        /*FINISH - HANDLE BOTTOM NAVIGATION*/
 
-        mCuorse = courseDtb.child("course").child("CSDL").child("assignment").child("0");
-        mCuorse.child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+        mCourse = courseDtb.child("course").child("CSDL").child("assignment").child("0");
+        mCourse.child("name").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String name = (String) dataSnapshot.getValue();
@@ -94,7 +94,7 @@ public class AssignmentViewScreen extends AppCompatActivity {
             }
         });
 
-        mCuorse.child("due").addListenerForSingleValueEvent(new ValueEventListener() {
+        mCourse.child("due").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String due = (String) dataSnapshot.getValue();
@@ -110,7 +110,7 @@ public class AssignmentViewScreen extends AppCompatActivity {
             }
         });
 
-        mCuorse.child("content").addListenerForSingleValueEvent(new ValueEventListener() {
+        mCourse.child("content").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String content = (String) dataSnapshot.getValue();
@@ -137,7 +137,7 @@ public class AssignmentViewScreen extends AppCompatActivity {
         String mssv = mUser.getEmail();
         mssv = mssv.replace("@gmail.com","").trim();
 
-        final DatabaseReference userCuorse = courseDtb.child("user").child(mssv).child("assignment").child("CTRR").child("0");
+        final DatabaseReference userCourse = courseDtb.child("user").child(mssv).child("assignment").child("CTRR").child("0");
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,8 +151,8 @@ public class AssignmentViewScreen extends AppCompatActivity {
                     }
                     else {
                         Toast.makeText(AssignmentViewScreen.this,dinhDangNgay.format(calendar.getTime()), Toast.LENGTH_SHORT).show();
-                        userCuorse.child("sent_time").setValue(calendar.getTime().toString());
-                        userCuorse.child("enclosed").setValue(m);
+                        userCourse.child("sent_time").setValue(calendar.getTime().toString());
+                        userCourse.child("enclosed").setValue(m);
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();

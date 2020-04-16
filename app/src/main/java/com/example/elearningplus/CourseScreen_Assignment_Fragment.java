@@ -40,15 +40,15 @@ public class CourseScreen_Assignment_Fragment extends Fragment implements Course
 
         listAssignment = new ArrayList<>();
 
-        listAssignment.add(new CourseScreen_Assignment("Lab 1", "Introduction", "11/12/2000","12pm"));
-        listAssignment.add(new CourseScreen_Assignment("Lab 2", "Introduction", "9/7/2000", "12pm"));
-        listAssignment.add(new CourseScreen_Assignment("Lab 3", "Introduction", "7/8/2000","12pm"));
-        listAssignment.add(new CourseScreen_Assignment("Lab 4", "Introduction", "21/12/2000","12pm"));
-        listAssignment.add(new CourseScreen_Assignment("Lab 5", "Introduction", "30/1/2000","12pm"));
-        listAssignment.add(new CourseScreen_Assignment("Lab 6", "Introduction", "15/6/2000","12pm"));
-        listAssignment.add(new CourseScreen_Assignment("Lab 7", "Introduction", "8/4/2000","12pm"));
-        listAssignment.add(new CourseScreen_Assignment("Lab 8", "Introduction", "19/22/2000","12pm"));
-        listAssignment.add(new CourseScreen_Assignment("Lab 9", "Introduction", "13/3/2000","12pm"));
+        listAssignment.add(new CourseScreen_Assignment("Lab 1", "Introduction", "11/12/2000"));
+        listAssignment.add(new CourseScreen_Assignment("Lab 2", "Introduction", "9/7/2000"));
+        listAssignment.add(new CourseScreen_Assignment("Lab 3", "Introduction", "7/8/2000"));
+        listAssignment.add(new CourseScreen_Assignment("Lab 4", "Introduction", "21/12/2000"));
+        listAssignment.add(new CourseScreen_Assignment("Lab 5", "Introduction", "30/1/2000"));
+        listAssignment.add(new CourseScreen_Assignment("Lab 6", "Introduction", "15/6/2000"));
+        listAssignment.add(new CourseScreen_Assignment("Lab 7", "Introduction", "8/4/2000"));
+        listAssignment.add(new CourseScreen_Assignment("Lab 8", "Introduction", "19/22/2000"));
+        listAssignment.add(new CourseScreen_Assignment("Lab 9", "Introduction", "13/3/2000"));
     }
 
     @Override
