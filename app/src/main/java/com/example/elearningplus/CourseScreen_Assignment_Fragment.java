@@ -1,5 +1,6 @@
 package com.example.elearningplus;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,21 +14,30 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-public class CourseScreen_Assignment_Fragment extends Fragment {
+public class CourseScreen_Assignment_Fragment extends Fragment implements CourseScreen_Assignment_Adapter.OnNoteListener {
 
     View view;
     private RecyclerView myrecyclerView;
     private List<CourseScreen_Assignment> listAssignment;
+    int[] array_colors = null;
+    int random;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view =inflater.inflate(R.layout.assignment_fragment, container, false);
+        view =inflater.inflate(R.layout.coursescreen_assignment_fragment, container, false);
         myrecyclerView = (RecyclerView) view.findViewById(R.id.assignment_recyclerview);
-        CourseScreen_Assignment_RecyclerView_Adapter assigment_adapter = new CourseScreen_Assignment_RecyclerView_Adapter(getContext(), listAssignment);
+        CourseScreen_Assignment_Adapter assignment_adapter = new CourseScreen_Assignment_Adapter(getContext(), listAssignment, this);
         myrecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        myrecyclerView.setAdapter(assigment_adapter);
+        myrecyclerView.setAdapter(assignment_adapter);
+
+        do{
+            random = new Random().nextInt(array_colors.length);
+        } while (random == 14 || random == 15);
+        myrecyclerView.setBackgroundColor(array_colors[random]);
+        container.addView(view, 0);
 
         return view;
     }
@@ -47,5 +57,12 @@ public class CourseScreen_Assignment_Fragment extends Fragment {
         listAssignment.add(new CourseScreen_Assignment("Lab 7", "Introduction", "8/4/2000","12pm"));
         listAssignment.add(new CourseScreen_Assignment("Lab 8", "Introduction", "19/22/2000","12pm"));
         listAssignment.add(new CourseScreen_Assignment("Lab 9", "Introduction", "13/3/2000","12pm"));
+    }
+
+    @Override
+    public void onNoteClick(int position) {
+        listAssignment.get(position);
+        Intent intent = new Intent(getActivity(), AssignmentViewScreen.class);
+        startActivity(intent);
     }
 }
