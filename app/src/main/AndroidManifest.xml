@@ -31,9 +31,6 @@
         <activity android:name=".BottomTab">
         </activity>
         <activity android:name=".ProfileScreenActivity" android:label="Profile"/>
-        <activity android:name=".CourseScreenActivity">
-
-        </activity>
     </application>
 
 </manifest>
