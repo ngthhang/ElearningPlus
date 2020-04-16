@@ -129,7 +129,7 @@ public class HomeScreenActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             String name = dataSnapshot.child( "name" ).getValue().toString();
                             String id = dataSnapshot.child( "id" ).getValue().toString();
-                            homeCourseList.add( new HomeCourse( name,id ) );
+                            homeCourseList.add( new HomeCourse( name,id,courseKey ) );
                             homeCourseAdapter.notifyDataSetChanged();
 
                         }

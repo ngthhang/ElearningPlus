@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
@@ -61,6 +62,13 @@ public class HomeAssignmentAdapter extends PagerAdapter {
         } //handle select background white
         while (random==14 || random== 15);
         relativeLayout.setBackgroundColor( array_colors[random] );
+
+        convertView.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText( context,"done",Toast.LENGTH_SHORT ).show();
+            }
+        } );
 
         container.addView( convertView,0 );
         return convertView;

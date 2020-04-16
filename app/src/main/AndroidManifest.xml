@@ -21,23 +21,18 @@
         <activity android:name=".LoginScreenActivity" android:theme="@style/AppThemes">
 
         </activity>
-        <activity android:name=".ChapterViewScreenActivity" />
-        <activity android:name=".NotificationScreenActivity" android:label="Notification"/>
-        <activity android:name=".LoginScreenActivity" android:theme="@style/AppThemes">
-
-        </activity>
         <activity android:name=".HomeScreenActivity" android:label="Home">
-
-        </activity>
-        <activity android:name=".BottomTab">
-        </activity>
-        <activity android:name=".ProfileScreenActivity" android:label="Profile"/>
-        <activity android:name=".CourseScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".BottomTab">
+        </activity>
+        <activity android:name=".ProfileScreenActivity" android:label="Profile"/>
+        <activity android:name=".CourseScreenActivity">
+
         </activity>
     </application>
 

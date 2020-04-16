@@ -3,11 +3,13 @@ package com.example.elearningplus;
 public class HomeCourse {
     private String name;
     private String courseId;
+    private String courseKey;
 
-    public HomeCourse(String name, String courseId ) {
+    public HomeCourse(String name, String courseId, String courseKey ) {
         this.name = name;
         this.courseId = courseId;
-    }
+        this.courseKey = courseKey;
+   }
 
     public String getName() {
         return name;
@@ -23,5 +25,13 @@ public class HomeCourse {
 
     public void setCourseId(String courseId) {
         this.courseId = courseId;
+    }
+
+    public String getCourseKey() {
+        return courseKey;
+    }
+
+    public void setCourseKey(String courseKey) {
+        this.courseKey = courseKey;
     }
 }

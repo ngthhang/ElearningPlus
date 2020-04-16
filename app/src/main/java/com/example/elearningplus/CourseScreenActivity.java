@@ -3,6 +3,7 @@ package com.example.elearningplus;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,14 @@ public class CourseScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_screen);
+
+
+        // GET COURSE KEY FROM INTENT
+        Intent i = getIntent();
+        Bundle b = i.getExtras();
+        String courseKey = b.getSerializable( "COURSE_KEY" ).toString();
+
+        Toast.makeText( this, "course_key_here: " +courseKey, Toast.LENGTH_SHORT ).show();
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayout_id);
         viewPager = (ViewPager) findViewById(R.id.viewPager_id);
