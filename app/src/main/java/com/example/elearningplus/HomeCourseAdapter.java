@@ -1,6 +1,7 @@
 package com.example.elearningplus;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,7 @@ public class HomeCourseAdapter extends PagerAdapter {
 
     @NonNull
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+    public Object instantiateItem(@NonNull ViewGroup container, final int position) {
         layoutInflater = LayoutInflater.from( context );
         View convertView = layoutInflater.inflate( R.layout.home_course_item, container, false );
 
@@ -66,8 +67,12 @@ public class HomeCourseAdapter extends PagerAdapter {
         convertView.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast toast = Toast.makeText( context,"Done",Toast.LENGTH_SHORT );
+                Toast toast = Toast.makeText( context,homeCourseList.get( position ).getCourseKey(),Toast.LENGTH_SHORT );
                 toast.show();
+                Intent i = new Intent( context,CourseScreenActivity.class );
+                String courseKey = homeCourseList.get( position ).getCourseKey();
+                i.putExtra( "COURSE_KEY", courseKey );
+                context.startActivity(i);
             }
         } );
 
