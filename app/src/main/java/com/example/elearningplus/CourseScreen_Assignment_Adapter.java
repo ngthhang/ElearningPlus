@@ -44,7 +44,6 @@ public class CourseScreen_Assignment_Adapter extends RecyclerView.Adapter<Course
         holder.tv_nLab.setText(mData.get(position).getnLab());
         holder.tv_nText.setText(mData.get(position).getnText());
         holder.tv_nDay.setText(mData.get(position).getnDay());
-        holder.tv_nTime.setText(mData.get(position).getnTime());
 
     }
 
@@ -56,7 +55,7 @@ public class CourseScreen_Assignment_Adapter extends RecyclerView.Adapter<Course
     
     public static class MyViewHodler extends RecyclerView.ViewHolder implements View.OnClickListener{
         
-        private TextView tv_nLab, tv_nText, tv_nDay, tv_nTime;
+        private TextView tv_nLab, tv_nText, tv_nDay;
         OnNoteListener onNoteListener;
         LinearLayout linearLayout;
 
@@ -66,7 +65,6 @@ public class CourseScreen_Assignment_Adapter extends RecyclerView.Adapter<Course
             tv_nLab = (TextView) itemView.findViewById(R.id.txt3);
             tv_nText = (TextView) itemView.findViewById(R.id.txt4);
             tv_nDay = (TextView) itemView.findViewById(R.id.txt5);
-            tv_nTime = (TextView) itemView.findViewById(R.id.txt6);
             linearLayout = (LinearLayout) itemView.findViewById( R.id.course_assignment_item );
             //random color
             int random;

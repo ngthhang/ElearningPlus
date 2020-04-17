@@ -12,6 +12,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +36,7 @@ public class CourseScreen_Course_Fragment extends Fragment implements CourseScre
         CourseScreen_Course_Adapter recyclerViewAdapter = new CourseScreen_Course_Adapter(getContext(), listCourse,this);
         myrecycleview.setLayoutManager(new LinearLayoutManager(getActivity()));
         myrecycleview.setAdapter(recyclerViewAdapter);
+
 
         return view;
     }
@@ -59,4 +63,5 @@ public class CourseScreen_Course_Fragment extends Fragment implements CourseScre
         Intent intent = new Intent(getActivity(), AssignmentViewScreen.class);
         startActivity(intent);
     }
+
 }
