@@ -5,6 +5,117 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ChapterViewScreenActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="547dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="56dp"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:textColor="@color/colorBlue6"
+                    android:layout_marginTop="20dp"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:id="@+id/tvChapternumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Chapter 1" />
+
+                <TextView
+                    android:textColor="@color/colorBlue6"
+                    android:layout_marginBottom="10dp"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:id="@+id/tvChaptercontent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Introduction to Android" />
+
+                <TextView
+                    android:textColor="@color/colorBlue6"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:textSize="18sp"
+                    android:id="@+id/tvChapterdetail1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Người học tích cực, tự giác phát biểu, trả lời câu hỏi hoặc nêu phản kiến tranh luận theo hướng xây dựng bài học.\n\nHoàn thành các bài tập về nhà:\nNgười học cần đọc trước và ôn lại tài liệu." />
+
+                <ImageView
+                    android:layout_gravity="center"
+                    android:id="@+id/imgvAnh"
+                    android:layout_width="399dp"
+                    android:layout_height="137dp"
+                    android:layout_margin="5dp"
+                    app:srcCompat="@drawable/common_google_signin_btn_text_dark_focused" />
+
+                <TextView
+                    android:textColor="@color/colorBlue6"
+                    android:textStyle="bold"
+                    android:id="@+id/tvChapterdetail2"
+                    android:textSize="18sp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Người học phải hoàn thành bài tập được giao đầy đủ và đúng tiến độ" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:background="@drawable/profile_botron_button"
+                android:textColor="@color/colorWhite1"
+                android:id="@+id/btnBackward"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="30dp"
+                android:layout_weight="1"
+                android:text="Backward" />
+
+            <Button
+                android:background="@drawable/profile_botron_button"
+                android:textColor="@color/colorWhite1"
+                android:id="@+id/btnForward"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:text="Forward" />
+        </LinearLayout>
+
+    </LinearLayout>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         app:itemIconSize="30dp"
         android:layout_width="match_parent"
@@ -16,4 +127,5 @@
         app:labelVisibilityMode="unlabeled"
         android:layout_alignParentBottom="true">
     </com.google.android.material.bottomnavigation.BottomNavigationView>
+
 </RelativeLayout>
