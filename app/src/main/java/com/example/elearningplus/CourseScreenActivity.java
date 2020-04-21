@@ -34,7 +34,7 @@ public class CourseScreenActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewPager_id);
 
         CourseScreen_ViewPager_Adapter adapter = new CourseScreen_ViewPager_Adapter(getSupportFragmentManager());
-        adapter.AddFragment(new CourseScreen_Course_Fragment(), "Course");
+        adapter.AddFragment(new CourseScreen_Course_Fragment(), "Lesson");
         adapter.AddFragment(new CourseScreen_Assignment_Fragment(), "Assignment");
         adapter.AddFragment(new CourseScreen_Grade_Fragment(), "Grade");
 

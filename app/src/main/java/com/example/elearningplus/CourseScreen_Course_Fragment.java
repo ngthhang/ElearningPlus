@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,8 +13,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +29,9 @@ public class CourseScreen_Course_Fragment extends Fragment implements CourseScre
     View view;
     private RecyclerView myrecycleview;
     private List<CourseScreen_Course> listCourse;
+    private DatabaseReference data;
+    TextView txName, txContent;
+
 
     public CourseScreen_Course_Fragment(){
     }
@@ -55,6 +64,38 @@ public class CourseScreen_Course_Fragment extends Fragment implements CourseScre
         listCourse.add(new CourseScreen_Course("Chapter 7", "Introduction to Android"));
         listCourse.add(new CourseScreen_Course("Chapter 8", "Introduction to Android"));
 
+        /*txName.findViewById(R.id.txt1);
+        txContent.findViewById(R.id.txt2);
+
+        data = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mData = data.child("course").child("CSDL").child("lesson").child("0");
+        mData.child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String name = (String) dataSnapshot.getValue();
+                txName.setText(name);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+        mData.child("content").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String content = (String) dataSnapshot.getValue();
+                txContent.setText(content);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+        FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
+        String mssv = mUser.getEmail();
+        mssv = mssv.replace("@gmail.com","").trim();*/
     }
 
     @Override
