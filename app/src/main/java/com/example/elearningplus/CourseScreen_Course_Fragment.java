@@ -13,9 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CourseScreen_Course_Fragment extends Fragment implements CourseScreen_Course_Adapter.OnNoteListener {
@@ -23,8 +21,13 @@ public class CourseScreen_Course_Fragment extends Fragment implements CourseScre
     View view;
     private RecyclerView myrecycleview;
     private List<CourseScreen_Course> listCourse;
+    private DatabaseReference mData;
+    private String courseKey;
 
-    public CourseScreen_Course_Fragment(){
+
+    public CourseScreen_Course_Fragment(List<CourseScreen_Course> listCourse, String courseKey){
+        this.listCourse = listCourse;
+        this.courseKey = courseKey;
     }
 
     @Nullable
@@ -36,32 +39,21 @@ public class CourseScreen_Course_Fragment extends Fragment implements CourseScre
         CourseScreen_Course_Adapter recyclerViewAdapter = new CourseScreen_Course_Adapter(getContext(), listCourse,this);
         myrecycleview.setLayoutManager(new LinearLayoutManager(getActivity()));
         myrecycleview.setAdapter(recyclerViewAdapter);
-
-
         return view;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        listCourse = new ArrayList<>();
-        listCourse.add(new CourseScreen_Course("Chapter 1", "Introduction to Android"));
-        listCourse.add(new CourseScreen_Course("Chapter 2", "Introduction to Android"));
-        listCourse.add(new CourseScreen_Course("Chapter 3", "Introduction to Android"));
-        listCourse.add(new CourseScreen_Course("Chapter 4", "Introduction to Android"));
-        listCourse.add(new CourseScreen_Course("Chapter 5", "Introduction to Android"));
-        listCourse.add(new CourseScreen_Course("Chapter 6", "Introduction to Android"));
-        listCourse.add(new CourseScreen_Course("Chapter 7", "Introduction to Android"));
-        listCourse.add(new CourseScreen_Course("Chapter 8", "Introduction to Android"));
-
     }
 
     @Override
     public void onNoteClick(int position) {
-        listCourse.get(position);
-        Intent intent = new Intent(getActivity(), AssignmentViewScreen.class);
+        Intent intent = new Intent(getActivity(), ChapterViewScreenActivity.class);
+        intent.putExtra( "CURRENT_LESSON", listCourse.get( position ).getnChapter() );
+        intent.putExtra( "COURSE_KEY", courseKey );
         startActivity(intent);
+
     }
 
 }

@@ -3,7 +3,6 @@ package com.example.elearningplus;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,11 +10,21 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CourseScreenActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private DatabaseReference mData;
+    private List<CourseScreen_Course> listCourse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +37,12 @@ public class CourseScreenActivity extends AppCompatActivity {
         Bundle b = i.getExtras();
         String courseKey = b.getSerializable( "COURSE_KEY" ).toString();
 
-        Toast.makeText( this, "course_key_here: " +courseKey, Toast.LENGTH_SHORT ).show();
-
         tabLayout = (TabLayout) findViewById(R.id.tabLayout_id);
         viewPager = (ViewPager) findViewById(R.id.viewPager_id);
 
-        CourseScreen_ViewPager_Adapter adapter = new CourseScreen_ViewPager_Adapter(getSupportFragmentManager());
-        adapter.AddFragment(new CourseScreen_Course_Fragment(), "Course");
+        listCourse = new ArrayList<>(  );
+        final CourseScreen_ViewPager_Adapter adapter = new CourseScreen_ViewPager_Adapter(getSupportFragmentManager());
+        adapter.AddFragment(new CourseScreen_Course_Fragment(listCourse,courseKey), "Lesson");
         adapter.AddFragment(new CourseScreen_Assignment_Fragment(), "Assignment");
         adapter.AddFragment(new CourseScreen_Grade_Fragment(), "Grade");
 
@@ -43,6 +51,40 @@ public class CourseScreenActivity extends AppCompatActivity {
 
         assert getSupportActionBar() != null;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // GET DATA FOR FRAGMENT
+        mData = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference currentCourse = mData.child( "course" ).child( courseKey ).child( "lesson" );
+        final DatabaseReference currentCourseName = mData.child( "course" ).child( courseKey );
+        currentCourseName.addListenerForSingleValueEvent( new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                setTitle(  dataSnapshot.child( "name" ).getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        } );
+        currentCourse.addListenerForSingleValueEvent( new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    String Chapter ="Chapter " + snapshot.child( "chapter" ).getValue().toString();
+                    String Intro =snapshot.child( "name" ).getValue().toString();
+                    listCourse.add( new CourseScreen_Course( Chapter,Intro ) );
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        } );
+
+
 
 
         /*START - HANDLE BOTTOM NAVIGATION */

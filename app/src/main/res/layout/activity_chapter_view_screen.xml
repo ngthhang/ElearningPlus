@@ -37,8 +37,7 @@
                     android:gravity="center"
                     android:id="@+id/tvChapternumber"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Chapter 1" />
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:textColor="@color/colorBlue6"
@@ -48,8 +47,7 @@
                     android:gravity="center"
                     android:id="@+id/tvChaptercontent"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Introduction to Android" />
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:textColor="@color/colorBlue6"
@@ -60,26 +58,7 @@
                     android:id="@+id/tvChapterdetail1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Người học tích cực, tự giác phát biểu, trả lời câu hỏi hoặc nêu phản kiến tranh luận theo hướng xây dựng bài học.\n\nHoàn thành các bài tập về nhà:\nNgười học cần đọc trước và ôn lại tài liệu." />
-
-                <ImageView
-                    android:layout_gravity="center"
-                    android:id="@+id/imgvAnh"
-                    android:layout_width="399dp"
-                    android:layout_height="137dp"
-                    android:layout_margin="5dp"
-                    app:srcCompat="@drawable/common_google_signin_btn_text_dark_focused" />
-
-                <TextView
-                    android:textColor="@color/colorBlue6"
-                    android:textStyle="bold"
-                    android:id="@+id/tvChapterdetail2"
-                    android:textSize="18sp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Người học phải hoàn thành bài tập được giao đầy đủ và đúng tiến độ" />
+                    />
 
             </LinearLayout>
         </ScrollView>
