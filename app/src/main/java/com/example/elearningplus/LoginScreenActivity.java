@@ -35,7 +35,7 @@ public class LoginScreenActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         btnLogin=(Button) findViewById(R.id.loginBut);
-        btnForgot=(TextView) findViewById(R.id.forgotBut);
+//        btnForgot=(TextView) findViewById(R.id.forgotBut);
         txtUser=(TextView) findViewById(R.id.usernameText);
         txtPass=(TextView) findViewById(R.id.passwordText);
 
@@ -45,12 +45,12 @@ public class LoginScreenActivity extends AppCompatActivity {
                 Login();
             }
         });
-        btnForgot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ResetPassWord();
-            }
-        });
+//        btnForgot.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ResetPassWord();
+//            }
+//        });
 
     }
     private void Login(){
