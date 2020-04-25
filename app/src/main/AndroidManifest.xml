@@ -34,10 +34,7 @@
         <activity android:name=".CourseScreenActivity">
 
     </activity>
-        <activity android:name=".SignupScreenActivity">
-
-        </activity>
-        <activity android:name=".ChooseLoginSignup">
+        <activity android:name=".ChooseLoginSignup" android:theme="@style/AppThemes">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,7 +42,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignupScreenActivity"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" android:theme="@style/AppThemes"/>
     </application>
 
 </manifest>
