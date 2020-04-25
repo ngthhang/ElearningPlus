@@ -24,11 +24,6 @@
             android:name=".LoginScreenActivity"
             android:windowSoftInputMode="adjustResize"
             android:theme="@style/AppThemes">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".HomeScreenActivity" android:label="Home">
 
@@ -42,6 +37,15 @@
         <activity android:name=".SignupScreenActivity">
 
         </activity>
+        <activity android:name=".ChooseLoginSignup">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".SignupScreenActivity"
+            android:windowSoftInputMode="adjustResize"/>
     </application>
 
 </manifest>
