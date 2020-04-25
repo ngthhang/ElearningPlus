@@ -1,6 +1,8 @@
 package com.example.elearningplus;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +27,7 @@ public class ChapterViewScreenActivity extends AppCompatActivity {
     ImageView imgvAnh;
     private DatabaseReference mData;
     String courseKey;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,8 @@ public class ChapterViewScreenActivity extends AppCompatActivity {
         tvChaptercontent = findViewById(R.id.tvChaptercontent);
         tvChapterdetail1 = findViewById(R.id.tvChapterdetail1);
 
+        sharedPreferences = getSharedPreferences("my_data", Context.MODE_PRIVATE);
+
         //SUPPORT ACTION BAR
         assert getSupportActionBar() != null;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -48,7 +53,7 @@ public class ChapterViewScreenActivity extends AppCompatActivity {
         String currentChapter = b.getSerializable( "CURRENT_LESSON" ).toString();
         Integer chapterIdPosition = currentChapter.length()-1;
         final Character chapterId = currentChapter.charAt(chapterIdPosition);
-        final String id = chapterId.toString();
+        final Integer id = Integer.parseInt(chapterId.toString());
 
         //GET DATA FOR FILE
         mData = FirebaseDatabase.getInstance().getReference();
@@ -57,17 +62,21 @@ public class ChapterViewScreenActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()){
-                    if (snapshot.child("chapter").getValue().toString().equals( id )){
-                        tvChapternumber.setText( "Chapter " + id );
+                    if (snapshot.child("chapter").getValue().toString().equals( String.valueOf(id) )){
+                        tvChapternumber.setText( "Chapter " + String.valueOf(id) );
                         tvChaptercontent.setText( snapshot.child( "name" ).getValue().toString());
                         tvChapterdetail1.setText( snapshot.child( "content" ).getValue().toString() );
                         Long count = dataSnapshot.getChildrenCount();
-                        if (id.equals( "1" )){
+
+                        if (String.valueOf(id).equals( "1" )){
                             btnBackward.setOnClickListener( null );
                             btnForward.setOnClickListener( new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Toast.makeText( ChapterViewScreenActivity.this,"Forward",Toast.LENGTH_SHORT ).show();
+                                    Integer m = id+1;
+                                    Intent intent = new Intent(ChapterViewScreenActivity.this,CourseScreenActivity.class);
+                                    intent.putExtra( "CURRENT_LESSON",m.toString());
+                                    Toast.makeText( ChapterViewScreenActivity.this,"Chuyển đến lesson "+m.toString(),Toast.LENGTH_SHORT ).show();
                                 }
                             } );
                         }
@@ -76,7 +85,10 @@ public class ChapterViewScreenActivity extends AppCompatActivity {
                             btnBackward.setOnClickListener( new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Toast.makeText(ChapterViewScreenActivity.this, "Clicked Back", Toast.LENGTH_SHORT).show();
+                                    Integer m = id-1;
+                                    Intent intent = new Intent(ChapterViewScreenActivity.this,CourseScreenActivity.class);
+                                    intent.putExtra( "CURRENT_LESSON",m.toString());
+                                    Toast.makeText( ChapterViewScreenActivity.this,"Chuyển đến lesson "+m.toString(),Toast.LENGTH_SHORT ).show();
                                 }
                             } );
                         }
@@ -84,13 +96,19 @@ public class ChapterViewScreenActivity extends AppCompatActivity {
                             btnForward.setOnClickListener( new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Toast.makeText(ChapterViewScreenActivity.this, "Clicked F", Toast.LENGTH_SHORT).show();
+                                    Integer m = id+1;
+                                    Intent intent = new Intent(ChapterViewScreenActivity.this,CourseScreenActivity.class);
+                                    intent.putExtra( "CURRENT_LESSON",m.toString());
+                                    Toast.makeText( ChapterViewScreenActivity.this,"Chuyển đến lesson "+m.toString(),Toast.LENGTH_SHORT ).show();
                                 }
                             } );
                             btnBackward.setOnClickListener( new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Toast.makeText(ChapterViewScreenActivity.this, "Clicked B", Toast.LENGTH_SHORT).show();
+                                    Integer m = id-1;
+                                    Intent intent = new Intent(ChapterViewScreenActivity.this,CourseScreenActivity.class);
+                                    intent.putExtra( "CURRENT_LESSON",m.toString());
+                                    Toast.makeText( ChapterViewScreenActivity.this,"Chuyển đến lesson "+m.toString(),Toast.LENGTH_SHORT ).show();
                                 }
                             } );
                         }
@@ -104,6 +122,7 @@ public class ChapterViewScreenActivity extends AppCompatActivity {
 
             }
         });
+
 
         /*START - HANDLE BOTTOM NAVIGATION */
         //Initial and assign variable

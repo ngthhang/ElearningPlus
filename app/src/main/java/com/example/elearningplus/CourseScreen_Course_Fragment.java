@@ -25,6 +25,7 @@ public class CourseScreen_Course_Fragment extends Fragment implements CourseScre
     private String courseKey;
 
 
+
     public CourseScreen_Course_Fragment(List<CourseScreen_Course> listCourse, String courseKey){
         this.listCourse = listCourse;
         this.courseKey = courseKey;
