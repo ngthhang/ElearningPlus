@@ -55,39 +55,50 @@ public class ChapterViewScreenActivity extends AppCompatActivity {
         final Character chapterId = currentChapter.charAt(chapterIdPosition);
         final Integer id = Integer.parseInt(chapterId.toString());
 
+        Integer k = sharedPreferences.getInt("numberOflesson",-1);
+        if (k==-1){
+            k=id;
+        }
         //GET DATA FOR FILE
         mData = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference contentLesson = mData.child( "course" ).child(courseKey).child( "lesson" );
-        contentLesson.addListenerForSingleValueEvent( new ValueEventListener() {
+        final Integer finalK = k;
+        contentLesson.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()){
-                    if (snapshot.child("chapter").getValue().toString().equals( String.valueOf(id) )){
-                        tvChapternumber.setText( "Chapter " + String.valueOf(id) );
+                    if (snapshot.child("chapter").getValue().toString().equals( String.valueOf(finalK) )){
+                        tvChapternumber.setText( "Chapter " + String.valueOf(finalK) );
                         tvChaptercontent.setText( snapshot.child( "name" ).getValue().toString());
                         tvChapterdetail1.setText( snapshot.child( "content" ).getValue().toString() );
                         Long count = dataSnapshot.getChildrenCount();
 
-                        if (String.valueOf(id).equals( "1" )){
+                        if (String.valueOf(finalK).equals( "1" )){
                             btnBackward.setOnClickListener( null );
                             btnForward.setOnClickListener( new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Integer m = id+1;
-                                    Intent intent = new Intent(ChapterViewScreenActivity.this,CourseScreenActivity.class);
-                                    intent.putExtra( "CURRENT_LESSON",m.toString());
+                                    Integer m = finalK +1;
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putInt("numberOflesson",m);
+                                    editor.commit();
+                                    finish();
+                                    startActivity(getIntent());
                                     Toast.makeText( ChapterViewScreenActivity.this,"Chuyển đến lesson "+m.toString(),Toast.LENGTH_SHORT ).show();
                                 }
                             } );
                         }
-                        else if (count.toString().equals(id)){
+                        else if (count.toString().equals(finalK)){
                             btnForward.setOnClickListener( null );
                             btnBackward.setOnClickListener( new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Integer m = id-1;
-                                    Intent intent = new Intent(ChapterViewScreenActivity.this,CourseScreenActivity.class);
-                                    intent.putExtra( "CURRENT_LESSON",m.toString());
+                                    Integer m = finalK -1;
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putInt("numberOflesson",m);
+                                    editor.commit();
+                                    finish();
+                                    startActivity(getIntent());
                                     Toast.makeText( ChapterViewScreenActivity.this,"Chuyển đến lesson "+m.toString(),Toast.LENGTH_SHORT ).show();
                                 }
                             } );
@@ -96,18 +107,24 @@ public class ChapterViewScreenActivity extends AppCompatActivity {
                             btnForward.setOnClickListener( new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Integer m = id+1;
-                                    Intent intent = new Intent(ChapterViewScreenActivity.this,CourseScreenActivity.class);
-                                    intent.putExtra( "CURRENT_LESSON",m.toString());
+                                    Integer m = finalK +1;
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putInt("numberOflesson",m);
+                                    editor.commit();
+                                    finish();
+                                    startActivity(getIntent());
                                     Toast.makeText( ChapterViewScreenActivity.this,"Chuyển đến lesson "+m.toString(),Toast.LENGTH_SHORT ).show();
                                 }
                             } );
                             btnBackward.setOnClickListener( new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Integer m = id-1;
-                                    Intent intent = new Intent(ChapterViewScreenActivity.this,CourseScreenActivity.class);
-                                    intent.putExtra( "CURRENT_LESSON",m.toString());
+                                    Integer m = finalK -1;
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putInt("numberOflesson",m);
+                                    editor.commit();
+                                    finish();
+                                    startActivity(getIntent());
                                     Toast.makeText( ChapterViewScreenActivity.this,"Chuyển đến lesson "+m.toString(),Toast.LENGTH_SHORT ).show();
                                 }
                             } );
@@ -137,14 +154,23 @@ public class ChapterViewScreenActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case R.id.profile:
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putInt("numberOflesson",-1);
+                        editor.commit();
                         startActivity(new Intent(getApplicationContext(), ProfileScreenActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.home:
+                        SharedPreferences.Editor editor1 = sharedPreferences.edit();
+                        editor1.putInt("numberOflesson",-1);
+                        editor1.commit();
                         startActivity(new Intent(getApplicationContext(), HomeScreenActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.notification:
+                        SharedPreferences.Editor editor2 = sharedPreferences.edit();
+                        editor2.putInt("numberOflesson",-1);
+                        editor2.commit();
                         startActivity(new Intent(getApplicationContext(), NotificationScreenActivity.class));
                         overridePendingTransition(0,0);
                         return true;
@@ -157,6 +183,9 @@ public class ChapterViewScreenActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp(){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("numberOflesson",-1);
+        editor.commit();
         Intent i = new Intent( this,HomeScreenActivity.class );
         startActivity(i);
         finish();

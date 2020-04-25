@@ -1,6 +1,8 @@
 package com.example.elearningplus;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -25,11 +27,13 @@ public class CourseScreenActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private DatabaseReference mData;
     private List<CourseScreen_Course> listCourse;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_screen);
+        sharedPreferences = getSharedPreferences("my_data", Context.MODE_PRIVATE);
 
 
         // GET COURSE KEY FROM INTENT

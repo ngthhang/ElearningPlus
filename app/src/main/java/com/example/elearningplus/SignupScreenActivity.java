@@ -31,7 +31,7 @@ public class SignupScreenActivity extends AppCompatActivity {
         auth=FirebaseAuth.getInstance();
         sharedPreferences = getSharedPreferences("my_data", Context.MODE_PRIVATE);
 
-        edtYourName = findViewById(R.id.edtYourName);
+        edtYourName = findViewById(R.id.userYourname);
         edtUserName = findViewById(R.id.usernameText);
         edtPassWord = findViewById(R.id.passwordText);
         btnSignup = findViewById(R.id.btnSignup);
