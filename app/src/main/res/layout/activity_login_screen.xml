@@ -78,9 +78,9 @@
             android:id="@+id/passwordText"
             android:layout_width="match_parent"
             android:layout_height="46dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp"
             android:ems="10"
             android:background="@drawable/input_shape"
@@ -89,6 +89,7 @@
             android:textSize="15dp"
             android:paddingLeft="20dp"
             android:drawableTint="@color/colorWhite2"
+            android:ems="10"
             android:hint="@string/login_input_pass"
             android:inputType="textPassword"
             android:textColor="@color/colorBlue5"
@@ -96,7 +97,7 @@
             android:layout_marginLeft="30dp" />
 
         <Button
-            android:id="@+id/loginBut"
+            android:id="@+id/btnSignup"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="200dp"
             android:layout_marginBottom="50dp"

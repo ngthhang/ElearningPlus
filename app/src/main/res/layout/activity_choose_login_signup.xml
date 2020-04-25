@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgr"
+    android:orientation="vertical"
+    tools:context=".LoginScreenActivity">
+
+    <ImageView
+        android:id="@+id/imageLogo"
+        android:layout_width="409dp"
+        android:layout_height="140dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="-2dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="-30dp"
+        app:srcCompat="@drawable/logo3x"
+        tools:srcCompat="@drawable/logo3x" />
+
+    <LinearLayout
+        android:layout_width="409dp"
+        android:layout_height="371dp"
+        android:layout_below="@+id/imageLogo"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="0dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnChooseLogin"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/shadow_button_layer_list"
+            android:gravity="center"
+            android:text="LOG IN"
+            android:textAlignment="center"
+            android:textColor="@color/colorBlue5"
+            android:textSize="17sp"
+            android:textStyle="normal" />
+
+        <Button
+            android:id="@+id/btnChooseSignup"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/botron_vien_trang"
+            android:text="SIGN UP"
+            android:textColor="@color/colorWhite1" />
+    </LinearLayout>
+
+</RelativeLayout>

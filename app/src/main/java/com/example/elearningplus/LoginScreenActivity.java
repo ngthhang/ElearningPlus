@@ -34,8 +34,7 @@ public class LoginScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login_screen);
 
         mAuth = FirebaseAuth.getInstance();
-        btnLogin=(Button) findViewById(R.id.loginBut);
-//        btnForgot=(TextView) findViewById(R.id.forgotBut);
+        btnLogin=(Button) findViewById(R.id.btnSignup);
         txtUser=(TextView) findViewById(R.id.usernameText);
         txtPass=(TextView) findViewById(R.id.passwordText);
 
@@ -45,12 +44,6 @@ public class LoginScreenActivity extends AppCompatActivity {
                 Login();
             }
         });
-//        btnForgot.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ResetPassWord();
-//            }
-//        });
 
     }
     private void Login(){
