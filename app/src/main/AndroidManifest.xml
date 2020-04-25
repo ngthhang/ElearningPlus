@@ -38,6 +38,9 @@
         <activity android:name=".ProfileScreenActivity" android:label="Profile"/>
         <activity android:name=".CourseScreenActivity">
 
+    </activity>
+        <activity android:name=".SignupScreenActivity">
+
         </activity>
     </application>
 
