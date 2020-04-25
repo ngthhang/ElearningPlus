@@ -14,13 +14,16 @@
         android:theme="@style/AppTheme">
         <activity android:name=".AssignmentViewScreen"
                   android:label="Assignment"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustResize"/>
 
         <activity android:name=".ChapterViewScreenActivity" >
 
         </activity>
         <activity android:name=".NotificationScreenActivity" android:label="Notification"/>
-        <activity android:name=".LoginScreenActivity" android:theme="@style/AppThemes">
+        <activity
+            android:name=".LoginScreenActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/AppThemes">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
