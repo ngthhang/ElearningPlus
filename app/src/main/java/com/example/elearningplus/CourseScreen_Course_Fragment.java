@@ -24,7 +24,7 @@ public class CourseScreen_Course_Fragment extends Fragment implements CourseScre
     private List<CourseScreen_Course> listCourse;
     private DatabaseReference mData;
     private String courseKey;
-
+    SharedPreferences sharedPreferences;
 
 
     public CourseScreen_Course_Fragment(List<CourseScreen_Course> listCourse, String courseKey){
@@ -35,7 +35,6 @@ public class CourseScreen_Course_Fragment extends Fragment implements CourseScre
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         view = inflater.inflate(R.layout.coursescreen_course_fragment, container, false);
         myrecycleview = (RecyclerView) view.findViewById(R.id.course_recyclerview);
         CourseScreen_Course_Adapter recyclerViewAdapter = new CourseScreen_Course_Adapter(getContext(), listCourse,this);

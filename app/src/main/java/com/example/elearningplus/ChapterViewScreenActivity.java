@@ -67,11 +67,11 @@ public class ChapterViewScreenActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    Long count = dataSnapshot.getChildrenCount();
                     if (snapshot.child("chapter").getValue().toString().equals( String.valueOf(finalK) )){
                         tvChapternumber.setText( "Chapter " + String.valueOf(finalK) );
                         tvChaptercontent.setText( snapshot.child( "name" ).getValue().toString());
                         tvChapterdetail1.setText( snapshot.child( "content" ).getValue().toString() );
-                        Long count = dataSnapshot.getChildrenCount();
 
                         if (String.valueOf(finalK).equals( "1" )){
                             btnBackward.setOnClickListener( null );
@@ -88,7 +88,7 @@ public class ChapterViewScreenActivity extends AppCompatActivity {
                                 }
                             } );
                         }
-                        else if (count.toString().equals(finalK)){
+                        else if (count.toString().equals(String.valueOf(finalK))){
                             btnForward.setOnClickListener( null );
                             btnBackward.setOnClickListener( new View.OnClickListener() {
                                 @Override
@@ -140,6 +140,9 @@ public class ChapterViewScreenActivity extends AppCompatActivity {
             }
         });
 
+        SharedPreferences.Editor editor1 = sharedPreferences.edit();
+        editor1.putInt("numberOflesson",-1);
+        editor1.commit();
 
         /*START - HANDLE BOTTOM NAVIGATION */
         //Initial and assign variable
@@ -154,23 +157,14 @@ public class ChapterViewScreenActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case R.id.profile:
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putInt("numberOflesson",-1);
-                        editor.commit();
                         startActivity(new Intent(getApplicationContext(), ProfileScreenActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.home:
-                        SharedPreferences.Editor editor1 = sharedPreferences.edit();
-                        editor1.putInt("numberOflesson",-1);
-                        editor1.commit();
                         startActivity(new Intent(getApplicationContext(), HomeScreenActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.notification:
-                        SharedPreferences.Editor editor2 = sharedPreferences.edit();
-                        editor2.putInt("numberOflesson",-1);
-                        editor2.commit();
                         startActivity(new Intent(getApplicationContext(), NotificationScreenActivity.class));
                         overridePendingTransition(0,0);
                         return true;
@@ -183,9 +177,6 @@ public class ChapterViewScreenActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp(){
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("numberOflesson",-1);
-        editor.commit();
         Intent i = new Intent( this,HomeScreenActivity.class );
         startActivity(i);
         finish();
