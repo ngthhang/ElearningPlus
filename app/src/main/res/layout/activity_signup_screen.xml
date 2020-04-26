@@ -17,7 +17,7 @@
         <ImageView
             android:id="@+id/imageLogo"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="100dp"
             android:layout_marginTop="10dp"
             app:srcCompat="@drawable/logo3x"
             tools:srcCompat="@drawable/logo3x" />
@@ -136,7 +136,7 @@
             android:layout_height="45dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="30dp"
             android:background="@drawable/shadow_button_layer_list_theme_black"
             android:text="CONTINUE"
             android:textAlignment="center"
