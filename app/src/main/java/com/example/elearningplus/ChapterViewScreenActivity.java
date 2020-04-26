@@ -50,7 +50,7 @@ public class ChapterViewScreenActivity extends AppCompatActivity {
         Intent i = getIntent();
         Bundle b = i.getExtras();
         courseKey = b.getSerializable( "COURSE_KEY" ).toString();
-        String currentChapter = b.getSerializable( "CURRENT_LESSON" ).toString();
+        final String currentChapter = b.getSerializable( "CURRENT_LESSON" ).toString();
         Integer chapterIdPosition = currentChapter.length()-1;
         final Character chapterId = currentChapter.charAt(chapterIdPosition);
         final Integer id = Integer.parseInt(chapterId.toString());
@@ -59,6 +59,7 @@ public class ChapterViewScreenActivity extends AppCompatActivity {
         if (k==-1){
             k=id;
         }
+        setTitle(courseKey);
         //GET DATA FOR FILE
         mData = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference contentLesson = mData.child( "course" ).child(courseKey).child( "lesson" );
@@ -69,7 +70,8 @@ public class ChapterViewScreenActivity extends AppCompatActivity {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()){
                     Long count = dataSnapshot.getChildrenCount();
                     if (snapshot.child("chapter").getValue().toString().equals( String.valueOf(finalK) )){
-                        tvChapternumber.setText( "Chapter " + String.valueOf(finalK) );
+                        String chapter = "Chapter " + String.valueOf( finalK );
+                        tvChapternumber.setText( chapter);
                         tvChaptercontent.setText( snapshot.child( "name" ).getValue().toString());
                         tvChapterdetail1.setText( snapshot.child( "content" ).getValue().toString() );
 

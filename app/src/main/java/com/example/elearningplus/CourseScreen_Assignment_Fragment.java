@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,7 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CourseScreen_Assignment_Fragment extends Fragment implements CourseScreen_Assignment_Adapter.OnNoteListener {
@@ -20,6 +20,12 @@ public class CourseScreen_Assignment_Fragment extends Fragment implements Course
     View view;
     private RecyclerView myrecyclerView;
     private List<CourseScreen_Assignment> listAssignment;
+    private String courseKey;
+
+    public CourseScreen_Assignment_Fragment(List<CourseScreen_Assignment> listAssignment, String courseKey){
+        this.listAssignment = listAssignment;
+        this.courseKey = courseKey;
+    }
 
     @Nullable
     @Override
@@ -36,24 +42,19 @@ public class CourseScreen_Assignment_Fragment extends Fragment implements Course
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        listAssignment = new ArrayList<>();
-
-        listAssignment.add(new CourseScreen_Assignment("Lab 1", "Introduction", "11/12/2000"));
-        listAssignment.add(new CourseScreen_Assignment("Lab 2", "Introduction", "9/7/2000"));
-        listAssignment.add(new CourseScreen_Assignment("Lab 3", "Introduction", "7/8/2000"));
-        listAssignment.add(new CourseScreen_Assignment("Lab 4", "Introduction", "21/12/2000"));
-        listAssignment.add(new CourseScreen_Assignment("Lab 5", "Introduction", "30/1/2000"));
-        listAssignment.add(new CourseScreen_Assignment("Lab 6", "Introduction", "15/6/2000"));
-        listAssignment.add(new CourseScreen_Assignment("Lab 7", "Introduction", "8/4/2000"));
-        listAssignment.add(new CourseScreen_Assignment("Lab 8", "Introduction", "19/22/2000"));
-        listAssignment.add(new CourseScreen_Assignment("Lab 9", "Introduction", "13/3/2000"));
     }
 
     @Override
     public void onNoteClick(int position) {
-        listAssignment.get(position);
-        Intent intent = new Intent(getActivity(), AssignmentViewScreen.class);
-        startActivity(intent);
+        CourseScreen_Assignment  assignment =listAssignment.get(position);
+        if(assignment.getIsOpen().equals( "false" )){
+            Toast.makeText(getContext(),"Assignment đã bị khoá không thể nộp",Toast.LENGTH_SHORT).show();
+        }else{
+            Intent intent = new Intent(getActivity(), AssignmentViewScreen.class);
+            intent.putExtra("COURSE_KEY", courseKey);
+            intent.putExtra("ASSIGNMENT_ID", position);
+            intent.putExtra( "IS_LATE", assignment.getLate() );
+            startActivity(intent);
+        }
     }
 }
