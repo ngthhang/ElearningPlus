@@ -28,10 +28,11 @@ public class CourseScreen_Grade_Fragment extends Fragment {
     View view;
     private RecyclerView myrecyclerView;
     private List<CourseScreen_Grade> listGrade;
-    private DatabaseReference data;
-    TextView txName, proGrade, txGrade;
+    private String courseKey;
 
-    public CourseScreen_Grade_Fragment(){
+    public CourseScreen_Grade_Fragment(List<CourseScreen_Grade> listGrade, String courseKey) {
+        this.listGrade = listGrade;
+        this.courseKey = courseKey;
     }
 
     @Nullable

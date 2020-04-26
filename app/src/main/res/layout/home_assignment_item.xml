@@ -56,6 +56,27 @@
                 android:textColor="@color/colorWhite1"
                 android:textSize="15sp"
                 android:textStyle="normal"></TextView>
+            <androidx.cardview.widget.CardView
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/late_tag"
+                android:layout_width="60dp"
+                android:layout_height="25dp"
+                android:textAlignment="center"
+                app:cardBackgroundColor="#FF0B0B"
+                app:cardCornerRadius="15dp">
+                <TextView
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:paddingTop="2dp"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/colorWhite1"
+                    android:layout_height="wrap_content"
+                    android:text="LATE"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+            </androidx.cardview.widget.CardView>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 

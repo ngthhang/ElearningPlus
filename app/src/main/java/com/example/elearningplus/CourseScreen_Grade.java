@@ -5,7 +5,7 @@ public class CourseScreen_Grade {
     private String NameGrade;
     private float Grade;
 
-    public CourseScreen_Grade(String nameGrade, float grade) {
+    public CourseScreen_Grade(String nameGrade,float grade) {
         NameGrade = nameGrade;
         Grade = grade;
     }

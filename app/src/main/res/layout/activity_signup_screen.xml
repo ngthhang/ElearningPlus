@@ -17,7 +17,7 @@
         <ImageView
             android:id="@+id/imageLogo"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="100dp"
             android:layout_marginTop="10dp"
             app:srcCompat="@drawable/logo3x"
             tools:srcCompat="@drawable/logo3x" />
@@ -27,10 +27,43 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
             android:gravity="center"
-            android:text="LOG IN"
+            android:text="SIGN UP"
             android:textColor="@color/colorBlue5"
             android:textSize="25dp"
             android:textStyle="bold"></TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:text="Your name"
+            android:textColor="@color/colorBlue5"
+            android:textSize="17dp"
+            android:textStyle="bold">
+
+        </TextView>
+
+        <EditText
+            android:id="@+id/userYourname"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/input_shape"
+            android:drawableTint="@color/colorBlue5"
+            android:ems="10"
+            android:hint="@string/login_input_email"
+            android:inputType="textPersonName"
+            android:paddingLeft="20dp"
+            android:selectAllOnFocus="false"
+            android:singleLine="false"
+            android:text="@null"
+            android:textColor="@color/colorBlue5"
+            android:textColorHint="@color/colorBlue5"
+            android:textSize="15dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -81,10 +114,12 @@
             android:layout_width="match_parent"
             android:layout_height="46dp"
             android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="30dp"
             android:background="@drawable/input_shape"
             android:drawableTint="@color/colorWhite2"
+            android:ems="10"
             android:hint="@string/login_input_pass"
             android:inputType="textPassword"
             android:paddingLeft="20dp"
@@ -101,9 +136,9 @@
             android:layout_height="45dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="30dp"
             android:background="@drawable/shadow_button_layer_list_theme_black"
-            android:text="LOG IN"
+            android:text="CONTINUE"
             android:textAlignment="center"
             android:textColor="@color/colorWhite1"
             android:textSize="17sp"
