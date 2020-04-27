@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class LogUp_ChooseLesson_Activity extends AppCompatActivity{
@@ -33,6 +34,8 @@ public class LogUp_ChooseLesson_Activity extends AppCompatActivity{
    private CheckBox chBoxSelectAll;
    private DatabaseReference mdatabase;
    private TextView txtName;
+   private String[] CourseID = new String[]{"CSDL", "CTRR", "HĐH", "MOBILE", "XSTK"};
+   LogUp_ChooseLesson_Data data[];
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,6 +44,8 @@ public class LogUp_ChooseLesson_Activity extends AppCompatActivity{
 
         initView();
         initData();
+
+
     }
 
     private void initView(){
@@ -52,16 +57,18 @@ public class LogUp_ChooseLesson_Activity extends AppCompatActivity{
         chBoxSelectAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
             }
         });
 
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(LogUp_ChooseLesson_Activity.this, LoginScreenActivity.class);
 
-                Intent i = new Intent(LogUp_ChooseLesson_Activity.this, LoginScreenActivity.class);
-                startActivity(i);
+                for(int i = 0; i< mListView.getChildCount(); i++){
+                }
+
+                startActivity(intent);
                 finish();
             }
         });
