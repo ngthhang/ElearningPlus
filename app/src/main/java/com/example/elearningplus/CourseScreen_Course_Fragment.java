@@ -29,9 +29,7 @@ public class CourseScreen_Course_Fragment extends Fragment implements CourseScre
     View view;
     private RecyclerView myrecycleview;
     private List<CourseScreen_Course> listCourse;
-    private DatabaseReference mData;
     private String courseKey;
-    SharedPreferences sharedPreferences;
 
 
     public CourseScreen_Course_Fragment(List<CourseScreen_Course> listCourse, String courseKey){
