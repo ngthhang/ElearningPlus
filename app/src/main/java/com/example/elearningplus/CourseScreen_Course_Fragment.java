@@ -53,49 +53,6 @@ public class CourseScreen_Course_Fragment extends Fragment implements CourseScre
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        listCourse = new ArrayList<>();
-        listCourse.add(new CourseScreen_Course("Chapter 1", "Introduction to Android"));
-        listCourse.add(new CourseScreen_Course("Chapter 2", "Introduction to Android"));
-        listCourse.add(new CourseScreen_Course("Chapter 3", "Introduction to Android"));
-        listCourse.add(new CourseScreen_Course("Chapter 4", "Introduction to Android"));
-        listCourse.add(new CourseScreen_Course("Chapter 5", "Introduction to Android"));
-        listCourse.add(new CourseScreen_Course("Chapter 6", "Introduction to Android"));
-        listCourse.add(new CourseScreen_Course("Chapter 7", "Introduction to Android"));
-        listCourse.add(new CourseScreen_Course("Chapter 8", "Introduction to Android"));
-
-        /*txName.findViewById(R.id.txt1);
-        txContent.findViewById(R.id.txt2);
-
-        data = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference mData = data.child("course").child("CSDL").child("lesson").child("0");
-        mData.child("name").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String name = (String) dataSnapshot.getValue();
-                txName.setText(name);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-
-        mData.child("content").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String content = (String) dataSnapshot.getValue();
-                txContent.setText(content);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-
-        FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
-        String mssv = mUser.getEmail();
-        mssv = mssv.replace("@gmail.com","").trim();*/
     }
 
     @Override

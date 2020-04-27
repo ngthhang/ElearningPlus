@@ -21,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -159,7 +160,6 @@ public class HomeScreenActivity extends AppCompatActivity {
                                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                                 try {
                                     Date due = dateFormat.parse( dueDate );
-                                    Long daysBetween = Dura
                                 } catch (ParseException e){
                                     Log.e("Fail to convert Date", toString());
                                 }

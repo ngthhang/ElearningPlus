@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Course"
+        android:textSize="35dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorBlue8"
+        android:gravity="center"/>
+
+    <CheckBox
+        android:id="@+id/chBoxSelectAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select All"
+        android:textSize="20dp"
+        android:layout_marginTop="15dp"/>
+
+    <ListView
+        android:id="@+id/choose_lesson_ListView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp">
+    </ListView>
+
+    <Button
+        android:id="@+id/btnSelect"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_shape"
+        android:textColor="@color/colorYellow3"
+        android:text="Select All"
+        android:textSize="20dp"
+        android:layout_gravity="center"/>
+
+
+
+
+</LinearLayout>
