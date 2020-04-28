@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
@@ -67,8 +66,6 @@ public class HomeCourseAdapter extends PagerAdapter {
         convertView.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast toast = Toast.makeText( context,homeCourseList.get( position ).getCourseKey(),Toast.LENGTH_SHORT );
-                toast.show();
                 Intent i = new Intent( context,CourseScreenActivity.class );
                 String courseKey = homeCourseList.get( position ).getCourseKey();
                 i.putExtra( "COURSE_KEY", courseKey );

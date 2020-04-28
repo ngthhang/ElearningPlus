@@ -1,6 +1,7 @@
 package com.example.elearningplus;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.viewpager.widget.PagerAdapter;
 
 import java.util.List;
@@ -39,22 +41,29 @@ public class HomeAssignmentAdapter extends PagerAdapter {
 
     @NonNull
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+    public Object instantiateItem(@NonNull ViewGroup container,final int position) {
         layoutInflater = LayoutInflater.from( context );
         View convertView  = layoutInflater.inflate( R.layout.home_assignment_item,container,false );
 
         TextView dueDate,courseAssignment,courseName;
         RelativeLayout relativeLayout;
+        CardView lateTag;
 
         courseName = convertView.findViewById( R.id.course_name );
         dueDate = convertView.findViewById( R.id.course_due );
         courseAssignment = convertView.findViewById( R.id.course_assignment );
         relativeLayout = convertView.findViewById( R.id.layout_card );
+        lateTag = convertView.findViewById( R.id.late_tag );
 
         dueDate.setText( "Due:\t"+homeAssignmentList.get( position ).getDueDate() );
         courseAssignment.setText( homeAssignmentList.get( position ).getCourseAssignment() );
         courseName.setText( homeAssignmentList.get( position ).getCourseName() );
-
+        String isLate = homeAssignmentList.get( position ).getLate();
+        if(isLate.equals( "true" )){
+            lateTag.setVisibility( View.VISIBLE );
+        }else{
+            lateTag.setVisibility( View.GONE );
+        }
         //random color
         int random;
         do{
@@ -66,7 +75,17 @@ public class HomeAssignmentAdapter extends PagerAdapter {
         convertView.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText( context,"done",Toast.LENGTH_SHORT ).show();
+                HomeAssignment homeAssignment = homeAssignmentList.get( position );
+                if(homeAssignment.getIsOpen().equals( "false" )){
+                    Toast.makeText( context, "Assignment này đã bị khoá không thể nộp", Toast.LENGTH_SHORT ).show();
+                }else {
+                    Intent i = new Intent( context, AssignmentViewScreen.class );
+                    i.putExtra( "COURSE_KEY", homeAssignment.getCourseKey() );
+                    i.putExtra( "IS_LATE", homeAssignment.getLate() );
+                    i.putExtra( "ASSIGNMENT_ID", position );
+                    context.startActivity(i);
+                }
+
             }
         } );
 

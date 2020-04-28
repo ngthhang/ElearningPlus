@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CourseScreen_Grade_Fragment extends Fragment {
@@ -19,8 +18,11 @@ public class CourseScreen_Grade_Fragment extends Fragment {
     View view;
     private RecyclerView myrecyclerView;
     private List<CourseScreen_Grade> listGrade;
+    private String courseKey;
 
-    public CourseScreen_Grade_Fragment(){
+    public CourseScreen_Grade_Fragment(List<CourseScreen_Grade> listGrade, String courseKey) {
+        this.listGrade = listGrade;
+        this.courseKey = courseKey;
     }
 
     @Nullable
@@ -39,11 +41,5 @@ public class CourseScreen_Grade_Fragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        listGrade = new ArrayList<>();
-        listGrade.add(new CourseScreen_Grade("Progress Test 1",(float) 7.5 ));
-        listGrade.add(new CourseScreen_Grade("Progress Test 2",(float) 8.0));
-        listGrade.add(new CourseScreen_Grade("Mid-term test",(float) 9.0));
-        listGrade.add(new CourseScreen_Grade("Final test",(float) 6.7));
     }
 }

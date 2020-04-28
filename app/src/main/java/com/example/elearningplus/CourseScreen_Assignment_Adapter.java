@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -40,11 +41,16 @@ public class CourseScreen_Assignment_Adapter extends RecyclerView.Adapter<Course
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHodler holder, int position) {
-
-        holder.tv_nLab.setText(mData.get(position).getnLab());
-        holder.tv_nText.setText(mData.get(position).getnText());
-        holder.tv_nDay.setText(mData.get(position).getnDay());
-
+        String asssignmentDueText = mData.get(position).getDue();
+        String isLate = mData.get( position ).getLate();
+        if (isLate.equals( "true" )) {
+            holder.lateTag.setVisibility( View.VISIBLE );
+        }
+        else{
+            holder.lateTag.setVisibility( View.GONE );
+        }
+        holder.tv_nLab.setText(mData.get(position).getName());
+        holder.tv_nText.setText(asssignmentDueText);
     }
 
 
@@ -55,16 +61,17 @@ public class CourseScreen_Assignment_Adapter extends RecyclerView.Adapter<Course
     
     public static class MyViewHodler extends RecyclerView.ViewHolder implements View.OnClickListener{
         
-        private TextView tv_nLab, tv_nText, tv_nDay;
+        private TextView tv_nLab, tv_nText;
         OnNoteListener onNoteListener;
         LinearLayout linearLayout;
+        CardView lateTag;
 
         public MyViewHodler(@NonNull View itemView, OnNoteListener onNoteListener,int[] array_colors) {
             super(itemView);
 
             tv_nLab = (TextView) itemView.findViewById(R.id.txt3);
             tv_nText = (TextView) itemView.findViewById(R.id.txt4);
-            tv_nDay = (TextView) itemView.findViewById(R.id.txt5);
+            lateTag = (CardView) itemView.findViewById( R.id.late_tag );
             linearLayout = (LinearLayout) itemView.findViewById( R.id.course_assignment_item );
             //random color
             int random;

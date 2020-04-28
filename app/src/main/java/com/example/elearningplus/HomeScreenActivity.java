@@ -2,6 +2,7 @@ package com.example.elearningplus;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -17,8 +19,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import javax.xml.datatype.Duration;
 
 public class HomeScreenActivity extends AppCompatActivity {
 
@@ -61,7 +69,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         assignmentViewPager.setAdapter( homeAssignmentAdapter );
         assignmentViewPager.setPadding( 16,10, 300,20 );
 
-//      /* FINISH - VIEW PAGER ADAPTER */
+         /* FINISH - VIEW PAGER ADAPTER */
 
 
 
@@ -85,7 +93,8 @@ public class HomeScreenActivity extends AppCompatActivity {
             }
         } );
 
-        /* FINISH - REALTIME DATABASE WITH FIREBASE */
+        /* FINISH - REALTIME DATABASE WITH FIRE BASE */
+
 
         /* START - HANDLE BOTTOM NAVIGATION */
         //Initial and assign variable
@@ -146,7 +155,15 @@ public class HomeScreenActivity extends AppCompatActivity {
                                 String courseAssign = ds.child( "name" ).getValue(String.class);
                                 String dueDate = ds.child( "due" ).getValue(String.class);
                                 String courseName = ds.child( "course" ).getValue(String.class);
-                                homeAssignmentList.add( new HomeAssignment( courseName,courseAssign,dueDate));
+                                String isOpen = ds.child( "isOpen" ).getValue().toString();
+                                Date currentDate = new Date();
+                                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                                try {
+                                    Date due = dateFormat.parse( dueDate );
+                                } catch (ParseException e){
+                                    Log.e("Fail to convert Date", toString());
+                                }
+                                homeAssignmentList.add( new HomeAssignment( courseKey,courseName,courseAssign,dueDate,isOpen));
                                 homeAssignmentAdapter.notifyDataSetChanged();
                             }
                         }

@@ -44,18 +44,6 @@
                     android:textColor="@color/colorBlue6"
                     android:textSize="25dp"
                     android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text="View all"
-                    android:textColor="@color/colorPurple2"
-                    android:textSize="18dp" />
-
             </LinearLayout>
 
         </TableRow>
@@ -97,17 +85,6 @@
                     android:textColor="@color/colorBlue6"
                     android:textSize="25dp"
                     android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text="View all"
-                    android:textColor="@color/colorPurple2"
-                    android:textSize="18dp" />
             </LinearLayout>
 
         </TableRow>
