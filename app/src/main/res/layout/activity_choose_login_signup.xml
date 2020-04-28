@@ -60,6 +60,18 @@
             android:background="@drawable/shadow_button_layer_list"
             android:text="SIGN UP"
             android:textColor="@color/colorBlue5" />
+
+        <TextView
+            android:clickable="true"
+            android:id="@+id/tvForgotPassword"
+            android:textSize="16sp"
+            android:textColor="@color/colorBlue5"
+            android:textStyle="italic"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Forgot password" />
     </LinearLayout>
 
 </RelativeLayout>

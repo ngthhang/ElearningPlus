@@ -21,10 +21,6 @@ public class LoginScreenActivity extends AppCompatActivity {
     Button btnLogin;
     TextView txtUser,txtPass,btnForgot;
     private FirebaseAuth mAuth;
-
-    TextView tvResetPassWord;
-    EditText etResetPassWord;
-    Button btnResetPassWord;
     Toast error;
 
     public static String mssv;
@@ -68,24 +64,5 @@ public class LoginScreenActivity extends AppCompatActivity {
                         }
                     } );
         }
-    }
-
-    public void ResetPassWord(){
-        Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialog_resetpassword);
-        dialog.show();
-
-        tvResetPassWord = findViewById(R.id.tvResetPassWord);
-        etResetPassWord = dialog.findViewById(R.id.etResetPassWord);
-        btnResetPassWord = dialog.findViewById(R.id.btnResetPassWord);
-
-        btnResetPassWord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.sendPasswordResetEmail(etResetPassWord.getText().toString().trim());
-                Toast.makeText(LoginScreenActivity.this,"Kiểm tra email để reset password",Toast.LENGTH_SHORT).show();
-            }
-        });
-
     }
 }
