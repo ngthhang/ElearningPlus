@@ -68,10 +68,10 @@
             android:textColor="@color/colorBlue5"
             android:textStyle="italic"
             android:layout_marginTop="15dp"
-            android:layout_marginLeft="30dp"
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Forgot password" />
+            android:text="@string/login_forgot_pass" />
     </LinearLayout>
 
 </RelativeLayout>

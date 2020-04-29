@@ -1,11 +1,9 @@
 package com.example.elearningplus;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,10 +27,18 @@ public class LoginScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
 
+        Intent intent = getIntent();
+        Bundle b = intent.getExtras();
+        String email = b.getSerializable( "PREVIOUS_MAIL" ).toString();
+
         mAuth = FirebaseAuth.getInstance();
         btnLogin=(Button) findViewById(R.id.btnSignup);
         txtUser=(TextView) findViewById(R.id.usernameText);
         txtPass=(TextView) findViewById(R.id.passwordText);
+
+        if (email != ""){
+            txtUser.setText( email );
+        }
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -46,7 +46,12 @@
         <activity
             android:name=".SignupScreenActivity"
             android:theme="@style/AppThemes"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize" >
+
+        </activity>
+        <activity android:name=".LogUp_ChooseLesson_Activity">
+
+        </activity>
     </application>
 
 </manifest>

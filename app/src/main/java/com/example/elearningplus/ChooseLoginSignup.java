@@ -38,6 +38,7 @@ public class ChooseLoginSignup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ChooseLoginSignup.this, LoginScreenActivity.class);
+                intent.putExtra( "PREVIOUS_MAIL" ,"");
                 startActivity(intent);
             }
         });

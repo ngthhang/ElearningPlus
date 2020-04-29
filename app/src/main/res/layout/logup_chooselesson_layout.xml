@@ -1,45 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:gravity="top"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:text="Select Course"
-        android:textSize="35dp"
-        android:textStyle="bold"
         android:textColor="@color/colorBlue8"
-        android:gravity="center"/>
+        android:textSize="25dp"
+        android:textStyle="bold" />
 
     <CheckBox
         android:id="@+id/chBoxSelectAll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:buttonTint="@color/colorPurple2"
         android:text="Select All"
-        android:textSize="20dp"
-        android:layout_marginTop="15dp"/>
+        android:textSize="20dp" />
 
     <ListView
         android:id="@+id/choose_lesson_ListView"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginTop="15dp">
-    </ListView>
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
+        android:divider="@null"></ListView>
 
     <Button
         android:id="@+id/btnSelect"
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:background="@drawable/button_shape"
+        android:layout_marginBottom="20dp"
+        android:text="Select"
         android:textColor="@color/colorYellow3"
-        android:text="Select All"
-        android:textSize="20dp"
-        android:layout_gravity="center"/>
-
-
+        android:textSize="20dp" />
 
 
 </LinearLayout>

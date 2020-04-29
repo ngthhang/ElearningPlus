@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -21,12 +20,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import javax.xml.datatype.Duration;
 
 public class HomeScreenActivity extends AppCompatActivity {
 
@@ -35,7 +31,7 @@ public class HomeScreenActivity extends AppCompatActivity {
     public HomeCourseAdapter homeCourseAdapter;
     public HomeAssignmentAdapter homeAssignmentAdapter;
     public ViewPager courseViewPager, assignmentViewPager;
-    private DatabaseReference mData;
+    private DatabaseReference mData,studentCourse, mCourse, mAssignment;
     private FirebaseUser mUser;
     String studentId;
 
@@ -44,12 +40,22 @@ public class HomeScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
+        getCurrentUser();
+        initView();
+        getData();
+        bottomTab();
+
+    }
+
+    protected void getCurrentUser(){
         // GET CURRENT USER
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
         studentId = mUser.getEmail();
         studentId= studentId.replace("@gmail.com","").trim();
+    }
 
+    protected void initView(){
         /* START - VIEW PAGER ADAPTER */
 
         //create the list course fake data
@@ -69,33 +75,10 @@ public class HomeScreenActivity extends AppCompatActivity {
         assignmentViewPager.setAdapter( homeAssignmentAdapter );
         assignmentViewPager.setPadding( 16,10, 300,20 );
 
-         /* FINISH - VIEW PAGER ADAPTER */
+        /* FINISH - VIEW PAGER ADAPTER */
+    }
 
-
-
-        /* START - REALTIME DATABASE WITH FIREBASE */
-        mData = FirebaseDatabase.getInstance().getReference();
-
-        final DatabaseReference studentCourse = mData.child( "user" ).child(studentId).child( "course" );
-
-        studentCourse.addListenerForSingleValueEvent( new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
-                    String courseKey = snapshot.getValue(String.class);
-                    findCourse(courseKey);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        } );
-
-        /* FINISH - REALTIME DATABASE WITH FIRE BASE */
-
-
+    protected void bottomTab(){
         /* START - HANDLE BOTTOM NAVIGATION */
         //Initial and assign variable
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
@@ -125,14 +108,35 @@ public class HomeScreenActivity extends AppCompatActivity {
         /*FINISH - HANDLE BOTTOM NAVIGATION*/
     }
 
+
+    protected void getData(){
+        /* START - REALTIME DATABASE WITH FIREBASE */
+        mData = FirebaseDatabase.getInstance().getReference();
+        studentCourse = mData.child( "user" ).child(studentId).child( "course" );
+        studentCourse.addListenerForSingleValueEvent( new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    String courseKey = snapshot.getValue(String.class);
+                    findCourse(courseKey);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        } );
+        /* FINISH - REALTIME DATABASE WITH FIRE BASE */
+    }
+
     protected void findCourse(final String courseKey){
         final DatabaseReference course =  mData.child( "course" );
         course.addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.hasChild( courseKey )){
-                    final DatabaseReference mCourse = course.child( courseKey );
-                    final DatabaseReference mAssignment = mCourse.child( "assignment" );
+                    mCourse = course.child( courseKey );
+                    mAssignment = mCourse.child( "assignment" );
                     mCourse.addListenerForSingleValueEvent( new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -173,7 +177,6 @@ public class HomeScreenActivity extends AppCompatActivity {
 
                         }
                     } );
-                }
             }
 
             @Override

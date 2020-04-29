@@ -26,27 +26,45 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AssignmentViewScreen extends AppCompatActivity {
-    DatabaseReference courseDtb;
-    DatabaseReference mCourse;
+    DatabaseReference mCourse,courseDtb,UserSubmit;
+    String courseKey;
     TextView tvLab, tvDue, tvContent;
     EditText edtUrl;
     Button btnSubmit;
-    String m;
+    String m, mssv,dateFormat, assignmentId,isLate;
     CardView cardView;
+    FirebaseUser mUser;
+    Date curentDate;
+    SimpleDateFormat dinhDangNgay;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.assignment_view);
+        getDataFromIntent();
+        initView();
+        getData();
+        backButton();
+    }
 
-        // GET DATA FROM INTENT
-        Intent i = getIntent();
-        Bundle b = i.getExtras();
-        final String courseKey = b.getSerializable( "COURSE_KEY" ).toString();
-        final String assignmentId = b.getSerializable( "ASSIGNMENT_ID" ).toString();
-        final String isLate = b.getSerializable( "IS_LATE" ).toString();
-        setTitle( courseKey );
+    public void backButton(){
+        assert getSupportActionBar() != null;
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
+    @Override
+    public boolean onSupportNavigateUp(){
+        Intent i = new Intent( this,HomeScreenActivity.class );
+        startActivity( i );
+        finish();
+        return true;
+    }
+
+    protected void initView(){
+        courseDtb = FirebaseDatabase.getInstance().getReference();
+        mCourse = courseDtb.child("course").child(courseKey).child("assignment").child(assignmentId);
         courseDtb = FirebaseDatabase.getInstance().getReference();
         tvLab = findViewById(R.id.tvLab);
         tvContent = findViewById(R.id.tvContent);
@@ -61,45 +79,6 @@ public class AssignmentViewScreen extends AppCompatActivity {
             cardView.setVisibility( View.VISIBLE );
         }
 
-
-        mCourse = courseDtb.child("course").child(courseKey).child("assignment").child(assignmentId);
-        mCourse.child("name").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String name = (String) dataSnapshot.getValue();
-                tvLab.setText(name);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-
-        mCourse.child("due").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String due = dataSnapshot.getValue().toString();
-                tvDue.setText(" Due: "+ due +"\n Point: 0\n Submitting: a link upload");
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-
-        mCourse.child("content").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String content = (String) dataSnapshot.getValue();
-                tvContent.setText(content);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-
         edtUrl.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after){}
@@ -111,11 +90,31 @@ public class AssignmentViewScreen extends AppCompatActivity {
             }
         });
 
+    }
+
+    protected void getDataFromIntent(){
+        // GET DATA FROM INTENT
+        Intent i = getIntent();
+        Bundle b = i.getExtras();
+        courseKey = b.getSerializable( "COURSE_KEY" ).toString();
+        assignmentId = b.getSerializable( "ASSIGNMENT_ID" ).toString();
+        isLate = b.getSerializable( "IS_LATE" ).toString();
+        setTitle( courseKey );
+    }
+    protected void getData(){
+       getDue();
+       getName();
+       getContent();
+       getPreviousSubmit();
+       submitLink();
+    }
+
+    protected void getPreviousSubmit(){
         // CHECK IF FILE HAS SUBMITTED BEFORE
-        FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
-        String mssv = mUser.getEmail();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        mssv = mUser.getEmail();
         mssv = mssv.replace("@gmail.com","").trim();
-        final  DatabaseReference UserSubmit = courseDtb.child("user").child( mssv ).child( "assignment" ).child(courseKey);
+        UserSubmit = courseDtb.child("user").child( mssv ).child( "assignment" ).child(courseKey);
         UserSubmit.addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -131,14 +130,16 @@ public class AssignmentViewScreen extends AppCompatActivity {
 
             }
         } );
+    }
 
+    protected void submitLink(){
         // HANDLE SUBMIT LINK
         btnSubmit.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Date curentDate = new Date();
-                SimpleDateFormat dinhDangNgay = new SimpleDateFormat("dd/MM/yyyy");
-                String dateFormat = dinhDangNgay.format( curentDate );
+                curentDate = new Date();
+                dinhDangNgay = new SimpleDateFormat("dd/MM/yyyy");
+                dateFormat = dinhDangNgay.format( curentDate );
                 if(m.equals( "" ) || m == null){
                     Toast.makeText( AssignmentViewScreen.this, "Chưa nộp link bài tập ", Toast.LENGTH_SHORT ).show();
                 }else {
@@ -152,15 +153,51 @@ public class AssignmentViewScreen extends AppCompatActivity {
             }
         } );
 
-        assert getSupportActionBar() != null;
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    @Override
-    public boolean onSupportNavigateUp(){
-        Intent i = new Intent( this,HomeScreenActivity.class );
-        startActivity( i );
-        finish();
-        return true;
+    protected void getDue(){
+        mCourse.child("due").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String due = dataSnapshot.getValue().toString();
+                tvDue.setText(" Due: "+ due +"\n Point: 0\n Submitting: a link upload");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
+
+    protected void getName(){
+        mCourse.child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String name = (String) dataSnapshot.getValue();
+                tvLab.setText(name);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+    }
+
+    protected void getContent(){
+        mCourse.child("content").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String content = (String) dataSnapshot.getValue();
+                tvContent.setText(content);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
+
+
 }

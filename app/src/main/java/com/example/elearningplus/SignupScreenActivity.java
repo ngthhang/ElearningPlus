@@ -40,8 +40,8 @@ public class SignupScreenActivity extends AppCompatActivity {
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String yourname = edtYourName.getText().toString().trim();
-                String email = edtUserName.getText().toString().trim();
+                final String yourname = edtYourName.getText().toString();
+                final String email = edtUserName.getText().toString().trim();
                 String password = edtPassWord.getText().toString().trim();
 
                 if(email.isEmpty() || email == null || password.isEmpty() || password == null || yourname.isEmpty() || yourname==null){
@@ -58,15 +58,9 @@ public class SignupScreenActivity extends AppCompatActivity {
                                                 Toast.LENGTH_LONG).show();
                                     } else {
                                         Toast.makeText(SignupScreenActivity.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
-                                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                                        editor.putString("yourname",yourname);
-                                        editor.commit();
-                                        String k = sharedPreferences.getString("yourname","");
-                                        Toast.makeText(SignupScreenActivity.this, k, Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(SignupScreenActivity.this, HomeScreenActivity.class);
+                                        Intent intent = new Intent(SignupScreenActivity.this, LogUp_ChooseLesson_Activity.class);
+                                        intent.putExtra( "USER_NAME", yourname );
                                         startActivity(intent);
-
-                                        finish();
                                     }
                                 }
                             });

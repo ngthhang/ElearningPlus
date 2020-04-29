@@ -8,19 +8,24 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        app:cardCornerRadius="20dp">
+        android:layout_margin="10dp"
+        app:cardCornerRadius="10dp">
 
         <LinearLayout
             android:id="@+id/choose_lesson_item"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="match_parent"
+            android:paddingTop="15dp"
+            android:paddingLeft="10dp"
+            android:paddingBottom="15dp"
             android:orientation="horizontal"
             android:background="@color/colorPink3">
 
             <CheckBox
                 android:id="@+id/chBoxSelect"
+                android:buttonTint="@color/colorWhite1"
                 android:layout_width="wrap_content"
+                android:backgroundTint="@color/colorWhite1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"/>
 
@@ -28,8 +33,9 @@
                 android:id="@+id/txtName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:text="Cấu trúc rời rạc"
-                android:textSize="25dp"
+                android:textSize="18dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="20dp"
                 android:textColor="@color/colorWhite1"/>
