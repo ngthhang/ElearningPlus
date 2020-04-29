@@ -97,7 +97,6 @@ public class AssignmentViewScreen extends AppCompatActivity {
         Bundle b = i.getExtras();
         courseKey = b.getSerializable( "COURSE_KEY" ).toString();
         assignmentId = b.getSerializable( "ASSIGNMENT_ID" ).toString();
-        Toast.makeText( AssignmentViewScreen.this,assignmentId,Toast.LENGTH_SHORT ).show();
         isLate = b.getSerializable( "IS_LATE" ).toString();
         setTitle( courseKey );
     }
