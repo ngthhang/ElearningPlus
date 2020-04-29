@@ -126,10 +126,15 @@ public class LogUp_ChooseLesson_Activity extends AppCompatActivity {
                         selectCourse.add( course );
                     }
                 }
-                initDataFirebaseForUser();
-                Intent intent = new Intent( LogUp_ChooseLesson_Activity.this,LoginScreenActivity.class );
-                intent.putExtra( "PREVIOUS_MAIL", user.getEmail());
-                startActivity( intent );
+                if(selectCourse.size() == 0){
+                    Toast.makeText( LogUp_ChooseLesson_Activity.this, "Vui lòng chọn ít nhất 1 môn học", Toast.LENGTH_SHORT ).show();
+                }
+                else {
+                    initDataFirebaseForUser();
+                    Intent intent = new Intent( LogUp_ChooseLesson_Activity.this, LoginScreenActivity.class );
+                    intent.putExtra( "PREVIOUS_MAIL", user.getEmail() );
+                    startActivity( intent );
+                }
             }
         } );
     }

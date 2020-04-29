@@ -13,13 +13,15 @@ public class HomeAssignment {
     private String late;
     private String courseKey;
     private String isOpen;
+    private String assignmentId;
 
-    public HomeAssignment(String courseKey,String courseName, String courseAssignment, String dueDate, String isOpen) {
+    public HomeAssignment(String courseKey,String courseName, String courseAssignment, String dueDate, String isOpen, String id) {
         this.courseKey = courseKey;
         this.courseName = courseName;
         this.courseAssignment = courseAssignment;
         this.dueDate = dueDate;
         this.isOpen = isOpen;
+        this.assignmentId = id;
         String asssignmentDueText = dueDate;
         Date currentDate = new Date();
         try {
@@ -82,5 +84,13 @@ public class HomeAssignment {
 
     public void setIsOpen(String isOpen) {
         this.isOpen = isOpen;
+    }
+
+    public String getAssignmentId() {
+        return assignmentId;
+    }
+
+    public void setAssignmentId(String assignmentId) {
+        this.assignmentId = assignmentId;
     }
 }

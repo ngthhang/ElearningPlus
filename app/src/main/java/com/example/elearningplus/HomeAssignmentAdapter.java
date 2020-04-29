@@ -82,7 +82,7 @@ public class HomeAssignmentAdapter extends PagerAdapter {
                     Intent i = new Intent( context, AssignmentViewScreen.class );
                     i.putExtra( "COURSE_KEY", homeAssignment.getCourseKey() );
                     i.putExtra( "IS_LATE", homeAssignment.getLate() );
-                    i.putExtra( "ASSIGNMENT_ID", position );
+                    i.putExtra( "ASSIGNMENT_ID", homeAssignment.getAssignmentId() );
                     context.startActivity(i);
                 }
 

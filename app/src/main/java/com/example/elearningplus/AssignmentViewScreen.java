@@ -31,7 +31,7 @@ public class AssignmentViewScreen extends AppCompatActivity {
     TextView tvLab, tvDue, tvContent;
     EditText edtUrl;
     Button btnSubmit;
-    String m, mssv,dateFormat, assignmentId,isLate;
+    String m, mssv,dateFormat, assignmentId,isLate, due;
     CardView cardView;
     FirebaseUser mUser;
     Date curentDate;
@@ -65,7 +65,6 @@ public class AssignmentViewScreen extends AppCompatActivity {
     protected void initView(){
         courseDtb = FirebaseDatabase.getInstance().getReference();
         mCourse = courseDtb.child("course").child(courseKey).child("assignment").child(assignmentId);
-        courseDtb = FirebaseDatabase.getInstance().getReference();
         tvLab = findViewById(R.id.tvLab);
         tvContent = findViewById(R.id.tvContent);
         tvDue = findViewById(R.id.tvDue);
@@ -98,6 +97,7 @@ public class AssignmentViewScreen extends AppCompatActivity {
         Bundle b = i.getExtras();
         courseKey = b.getSerializable( "COURSE_KEY" ).toString();
         assignmentId = b.getSerializable( "ASSIGNMENT_ID" ).toString();
+        Toast.makeText( AssignmentViewScreen.this,assignmentId,Toast.LENGTH_SHORT ).show();
         isLate = b.getSerializable( "IS_LATE" ).toString();
         setTitle( courseKey );
     }
@@ -159,8 +159,12 @@ public class AssignmentViewScreen extends AppCompatActivity {
         mCourse.child("due").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String due = dataSnapshot.getValue().toString();
+                due = (String) dataSnapshot.getValue();
                 tvDue.setText(" Due: "+ due +"\n Point: 0\n Submitting: a link upload");
+                if(due== null){
+                    Toast.makeText( AssignmentViewScreen.this,"Null me roi",Toast.LENGTH_SHORT );
+                }
+                Toast.makeText( AssignmentViewScreen.this,due,Toast.LENGTH_SHORT );
             }
 
             @Override

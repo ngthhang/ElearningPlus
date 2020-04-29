@@ -160,6 +160,7 @@ public class HomeScreenActivity extends AppCompatActivity {
                                 String dueDate = ds.child( "due" ).getValue(String.class);
                                 String courseName = ds.child( "course" ).getValue(String.class);
                                 String isOpen = ds.child( "isOpen" ).getValue().toString();
+                                String id = ds.getKey();
                                 Date currentDate = new Date();
                                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                                 try {
@@ -167,7 +168,7 @@ public class HomeScreenActivity extends AppCompatActivity {
                                 } catch (ParseException e){
                                     Log.e("Fail to convert Date", toString());
                                 }
-                                homeAssignmentList.add( new HomeAssignment( courseKey,courseName,courseAssign,dueDate,isOpen));
+                                homeAssignmentList.add( new HomeAssignment( courseKey,courseName,courseAssign,dueDate,isOpen,id));
                                 homeAssignmentAdapter.notifyDataSetChanged();
                             }
                         }
