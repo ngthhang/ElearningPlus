@@ -72,7 +72,6 @@ public class LogUp_ChooseLesson_Activity extends AppCompatActivity {
         Intent intent =  getIntent();
         Bundle b = intent.getExtras();
         UserName = b.getSerializable( "USER_NAME" ).toString();
-        Toast.makeText( this,UserName,Toast.LENGTH_SHORT ).show();
         UserMail = mUser.getEmail();
         UserId = UserMail.replace("@gmail.com","").trim();
         user = new User(UserId,UserMail,UserName);
